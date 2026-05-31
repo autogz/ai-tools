@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Developer Tools Bundle — Local-first AI CLI toolkit</title>
+<meta name="description" content="Four local-first AI CLI tools for developers. Shell commands, PR reviews, SQL generation, and image generation. Pay once. Use forever.">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0f; color: #e0e0e0; line-height: 1.7; }
+.container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+a { color: #0066FF; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Hero */
+.hero { text-align: center; padding: 100px 0 60px; }
+.hero h1 { font-size: 2.8em; background: linear-gradient(135deg, #0066FF, #00CC88); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 16px; }
+.hero p { font-size: 1.15em; color: #888; max-width: 640px; margin: 0 auto 8px; }
+.hero .install { background: #1a1a2e; display: inline-block; padding: 14px 28px; border-radius: 8px; font-family: monospace; font-size: 1.1em; color: #00CC88; margin: 30px 0 10px; border: 1px solid #00CC8833; }
+.hero .sub { color: #666; font-size: 0.85em; }
+
+/* Section */
+.section { padding: 60px 0; }
+.section h2 { font-size: 1.8em; margin-bottom: 30px; text-align: center; }
+
+/* Cards */
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 700px) { .cards { grid-template-columns: 1fr; } }
+.card { background: #12121a; border: 1px solid #222; border-radius: 12px; padding: 28px; }
+.card h3 { font-size: 1.15em; margin-bottom: 6px; }
+.card .cmd { color: #0066FF; font-family: monospace; font-size: 0.85em; margin-bottom: 8px; }
+.card p { color: #888; font-size: 0.9em; }
+
+/* Pricing */
+.pricing-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+@media (max-width: 700px) { .pricing-cards { grid-template-columns: 1fr; } }
+.pcard { background: #12121a; border: 1px solid #222; border-radius: 12px; padding: 28px; text-align: center; }
+.pcard.featured { border-color: #0066FF; position: relative; }
+.pcard.featured::before { content: 'Recommended'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #0066FF; color: #fff; padding: 2px 14px; border-radius: 20px; font-size: 0.75em; }
+.pcard h3 { font-size: 1em; margin-bottom: 4px; }
+.pcard .price { font-size: 2.2em; font-weight: 700; margin: 12px 0; }
+.pcard .price span { font-size: 0.4em; color: #888; }
+.pcard ul { list-style: none; margin: 16px 0; text-align: left; }
+.pcard ul li { padding: 4px 0; color: #aaa; font-size: 0.85em; }
+.pcard ul li::before { content: '✓ '; color: #00CC88; }
+
+/* Mermaid fallback */
+.mermaid-placeholder { background: #12121a; border: 1px solid #222; border-radius: 12px; padding: 30px; font-family: monospace; font-size: 0.8em; color: #888; white-space: pre; overflow-x: auto; line-height: 1.4; }
+
+/* FAQ */
+.faq-item { border-bottom: 1px solid #222; padding: 20px 0; }
+.faq-item h4 { cursor: pointer; color: #ccc; font-size: 1em; }
+.faq-item p { color: #888; font-size: 0.9em; margin-top: 8px; }
+
+/* Footer */
+footer { text-align: center; padding: 40px; color: #555; font-size: 0.8em; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- Hero -->
+<div class="hero">
+  <h1>AI Developer Tools Bundle</h1>
+  <p>Four local-first AI CLI tools for developers.</p>
+  <p>Shell commands, PR reviews, SQL generation, and image generation from your terminal.</p>
+  <p style="color:#666;font-size:0.95em">Bring your own API key. Pay once. Use forever.</p>
+  <div class="install">pip install ai-shell-hub</div>
+  <div class="sub">Python 3.10+ · Local CLI · MIT License</div>
+</div>
+
+<!-- Tools -->
+<div class="section">
+  <h2>Four Tools, One Bundle</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>AI Shell Hub</h3>
+      <div class="cmd">ai "show disk usage"</div>
+      <p>Natural language to shell commands. Error diagnosis and shell history analysis.</p>
+    </div>
+    <div class="card">
+      <h3>AI PR Review</h3>
+      <div class="cmd">pr-review https://github.com/.../pull/123</div>
+      <p>Automated code review with security pattern scanning and deep LLM analysis.</p>
+    </div>
+    <div class="card">
+      <h3>AI SQL</h3>
+      <div class="cmd">ai-sqlx "top 10 customers by revenue"</div>
+      <p>Natural language to SQL. Supports MySQL, PostgreSQL, and more.</p>
+    </div>
+    <div class="card">
+      <h3>AI Image CLI</h3>
+      <div class="cmd">ai-img "a cat in space"</div>
+      <p>Image generation from terminal via DALL-E 3. Multiple sizes and batch support.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Pricing -->
+<div class="section">
+  <h2>Pricing</h2>
+  <div class="pricing-cards">
+    <div class="pcard">
+      <h3>Free</h3>
+      <div class="price">$0</div>
+      <ul>
+        <li>3 calls per day</li>
+        <li>All 4 tools</li>
+        <li>No time limit</li>
+      </ul>
+    </div>
+    <div class="pcard featured">
+      <h3>Bundle</h3>
+      <div class="price">$10 <span>lifetime</span></div>
+      <ul>
+        <li>All 4 tools Pro</li>
+        <li>No daily limit</li>
+        <li>Lifetime updates</li>
+        <li>Pay with USDT</li>
+      </ul>
+    </div>
+    <div class="pcard">
+      <h3>Single Tool</h3>
+      <div class="price">$7 <span>lifetime</span></div>
+      <ul>
+        <li>One tool of choice</li>
+        <li>No daily limit</li>
+        <li>Lifetime updates</li>
+      </ul>
+    </div>
+  </div>
+  <p style="text-align:center;color:#888;font-size:0.9em;margin-top:20px">
+    Payment: USDT ERC20 · <code>0xafc32581a9e4ea30aa03cb8ef5879c2366d35f46</code>
+  </p>
+</div>
+
+<!-- Architecture -->
+<div class="section">
+  <h2>Architecture</h2>
+  <div class="mermaid-placeholder">
+Developer → pip install → Local CLI → AI Shell Hub
+                                    → AI PR Review
+                                    → AI SQL
+                                    → AI Image CLI
+                                    → Your API Key
+                                    → Local License
+
+USDT Payment → Etherscan Verify → Local License
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="section">
+  <h2>FAQ</h2>
+  <div class="faq-item">
+    <h4>Do I need an API key?</h4>
+    <p>Yes. Each tool requires an OpenAI API key. Configure via <code>ai --config</code> or the <code>OPENAI_API_KEY</code> environment variable.</p>
+  </div>
+  <div class="faq-item">
+    <h4>What network for USDT?</h4>
+    <p>ERC20 (Ethereum) only. Other networks may result in loss.</p>
+  </div>
+  <div class="faq-item">
+    <h4>How does activation work?</h4>
+    <p>Send USDT → run <code>aitools claim &lt;tx_hash&gt;</code> → CLI verifies on Etherscan → Pro activated locally. No server involved.</p>
+  </div>
+  <div class="faq-item">
+    <h4>Is my payment refundable?</h4>
+    <p>Blockchain transactions are irreversible. Verify the address and network before sending.</p>
+  </div>
+  <div class="faq-item">
+    <h4>Do you collect my data?</h4>
+    <p>No telemetry, no analytics, no tracking. All tools run locally.</p>
+  </div>
+</div>
+
+</div>
+
+<footer>
+  <p><a href="https://github.com/autogz/ai-tools">GitHub</a> · MIT License · Built by a solo developer</p>
+</footer>
+
+</body>
+</html>
