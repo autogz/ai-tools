@@ -1,87 +1,47 @@
-# AI Tools
+# AI Developer Tools Bundle
 
-A collection of command-line AI tools for developers. Each tool solves a
-specific problem: working with the shell, reviewing code, writing SQL, or
-generating images. Tools are installed individually via pip.
+A local-first AI CLI toolkit for developers. Shell commands, PR reviews, SQL
+generation, and image generation in one terminal. Bring your own API key.
+Pay once. Use forever.
 
-[![PyPI - ai-shell-hub](https://img.shields.io/pypi/v/ai-shell-hub?label=ai-shell-hub)](https://pypi.org/project/ai-shell-hub/)
-[![PyPI - ai-pr-review](https://img.shields.io/pypi/v/ai-pr-review?label=ai-pr-review)](https://pypi.org/project/ai-pr-review/)
-[![PyPI - ai-sqlx](https://img.shields.io/pypi/v/ai-sqlx?label=ai-sqlx)](https://pypi.org/project/ai-sqlx/)
-[![PyPI - ai-img-cli](https://img.shields.io/pypi/v/ai-img-cli?label=ai-img-cli)](https://pypi.org/project/ai-img-cli/)
+[![PyPI - ai-dev-tools](https://img.shields.io/badge/PyPI-ai--dev--tools-blue)](https://pypi.org/project/ai-shell-hub/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![CI](https://github.com/autogz/ai-tools/actions/workflows/ci.yml/badge.svg)](https://github.com/autogz/ai-tools/actions/workflows/ci.yml)
 
 ---
 
 ## Tools Included
 
-| Package | Command | Description |
+| Package | Install | What it does |
 |---------|---------|-------------|
-| [ai-shell-hub](https://pypi.org/project/ai-shell-hub/) | `ai` | Translate natural language to shell commands. Diagnose errors. |
-| [ai-pr-review](https://pypi.org/project/ai-pr-review/) | `pr-review` | Automated code review with pattern-based security scanning. |
-| [ai-sqlx](https://pypi.org/project/ai-sqlx/) | `ai-sqlx` | Translate natural language to SQL queries. |
-| [ai-img-cli](https://pypi.org/project/ai-img-cli/) | `ai-img` | Generate images from text prompts via DALL-E 3. |
+| **AI Shell Hub** | `pip install ai-shell-hub` | Natural language to shell commands, error diagnosis |
+| **AI PR Review** | `pip install ai-pr-review` | Automated code review with security pattern scanning |
+| **AI SQL** | `pip install ai-sqlx` | Natural language to SQL (MySQL, PostgreSQL, etc.) |
+| **AI Image CLI** | `pip install ai-img-cli` | Image generation via DALL-E 3 from terminal |
 
-Each tool has a free tier (limited daily use) and a Pro tier (unlocked via
-license activation).
+Each tool has a free tier. The **Bundle** unlocks all four Pro tiers.
 
 ---
 
-## Installation
-
-Each tool is a separate pip package:
+## Quick Install
 
 ```bash
+# Install individual tools
 pip install ai-shell-hub
 pip install ai-pr-review
 pip install ai-sqlx
 pip install ai-img-cli
-```
 
-Python 3.10+ required.
-
----
-
-## Prerequisites
-
-### LLM API Key (Required)
-
-The tools use OpenAI's API for natural language processing. You need an
-OpenAI API key with access to `gpt-4o-mini` or similar models.
-
-```bash
+# Configure your API key
 export OPENAI_API_KEY="sk-..."
-ai --config   # configure the key
-```
-
-You are responsible for any API usage costs charged by OpenAI.
-
-### Etherscan API Key (Required for License Activation)
-
-License activation verifies USDT payments via the Etherscan API. A free API
-key is available at [etherscan.io](https://etherscan.io/myapikey).
-
-```bash
-export ETHERSCAN_API_KEY="YourApiKey"
-```
-
----
-
-## Configuration
-
-Each tool stores configuration in `~/.<tool-name>/config.json`.
-
-```bash
-ai --config       # ai-shell-hub
-ai-sqlx --config  # ai-sqlx
-ai-img --config   # ai-img-cli
-pr-review --config  # ai-pr-review
+ai --config
 ```
 
 ---
 
 ## Usage Examples
 
-### ai-shell-hub
+### AI Shell Hub
 
 ```bash
 ai "show disk usage"
@@ -90,140 +50,235 @@ ai -f "docker: command not found"
 ai -H
 ```
 
-### ai-pr-review
+### AI PR Review
 
 ```bash
 pr-review https://github.com/owner/repo/pull/123
 pr-review https://github.com/owner/repo/pull/123 --deep
 ```
 
-### ai-sqlx
+### AI SQL
 
 ```bash
 ai-sqlx "find users who registered in the last 7 days"
 ai-sqlx -d postgres "total orders per customer"
 ```
 
-### ai-img-cli
+### AI Image CLI
 
 ```bash
 ai-img "a cat in space wearing a hoodie"
 ai-img -s 1792x1024 "wide landscape"
-ai-img -o output.png "your prompt"
 ```
 
 ---
 
-## Screenshots
+## Pricing
 
-![ai-shell-hub](screenshots/ai-shell-hub.png)
-![ai-pr-review](screenshots/ai-pr-review.png)
-![ai-sqlx](screenshots/ai-sqlx.png)
-![ai-img-cli](screenshots/ai-img-cli.png)
+| Tier | Price | Scope |
+|------|-------|-------|
+| **Bundle** (recommended) | **$10 lifetime** | All 4 tools |
+| Shell Hub Pro | $7 lifetime | Shell AI only |
+| PR Review Pro | $7 lifetime | Code review only |
+| SQL Pro | $7 lifetime | SQL generation only |
+| Image CLI Pro | $4 lifetime | Image generation only |
+| Free | $0 | 3 calls/day across all tools |
 
 ---
 
-## Pro License Activation
-
-The Pro tier is unlocked via a one-time license activation that uses a USDT
-(ERC20) transfer verified against the Ethereum blockchain.
-
-### Supported Tiers
-
-| Tier | Price (USDT) | Scope |
-|------|-------------|-------|
-| Shell Hub Pro | $7 | No daily usage limit |
-| PR Review Pro | $7 | No daily usage limit |
-| SQL Pro | $7 | No daily usage limit |
-| Image CLI Pro | $4 | No daily usage limit |
-| Bundle | $10 | All four tools |
+## Payment and Activation
 
 ### Payment Address
 
+```
 Network: ERC20 (Ethereum)
-Address: `0xafc32581a9e4ea30aa03cb8ef5879c2366d35f46`
-
-**Important notes:**
-- Send only USDT on the ERC20 network. Other networks or tokens may be lost.
-- Transactions are irreversible. Verify the address and network before sending.
-- The project does not custody or manage user funds.
-- Activation is local and does not transmit personal data.
-
-### Activation Commands
-
-```bash
-# ai-shell-hub
-ai claim <transaction_hash>
-
-# ai-pr-review
-pr-review --claim <transaction_hash>
-
-# ai-sqlx
-ai-sqlx claim <transaction_hash>
-
-# ai-img-cli
-ai-img claim <transaction_hash>
+Asset:   USDT
+Address: 0xafc32581a9e4ea30aa03cb8ef5879c2366d35f46
 ```
 
-Activation produces a deterministic activation code derived from the
-transaction. No remote server is contacted for activation.
+**Important:**
+- Send only USDT on the **ERC20** network. Other networks may result in loss.
+- Transactions are irreversible. Verify the address before sending.
+- This project does not custody user funds.
+- Payment purchases a local software license, not a service subscription.
+
+### Activation
+
+After sending USDT, run the claim command with your transaction hash:
+
+```bash
+# Bundle (all 4 tools)
+aitools claim <tx_hash>
+
+# Individual tools
+ai claim <tx_hash>
+pr-review --claim <tx_hash>
+ai-sqlx claim <tx_hash>
+ai-img claim <tx_hash>
+```
+
+The CLI queries the Etherscan API to verify the transaction, then generates
+a local activation key. No remote server is involved in activation.
+
+### Free Tier
+
+You get 3 free calls per day across all tools. After that:
+
+```
+You have used your free runs for today.
+
+Upgrade to AI Developer Tools Bundle:
+- AI Shell
+- AI PR Review
+- AI SQL
+- AI Image CLI
+
+Price: $10 lifetime
+Payment: USDT ERC20 / Alipay / WeChat
+Run: aitools price
+
+Already paid?
+Run: aitools claim <tx_hash>
+```
 
 ---
 
-## Security Considerations
+## Architecture
 
-### Shell Commands
+```mermaid
+flowchart LR
+    A[Developer] --> B[pip install]
+    B --> C[Local CLI]
+    C --> D[AI Shell]
+    C --> E[PR Review]
+    C --> F[SQL Generator]
+    C --> G[Image CLI]
+    C --> H[Your API Key]
+    C --> I[Local License]
+    J[USDT Payment] --> K[Etherscan Verify]
+    K --> I
+```
 
-- Dangerous patterns (rm -rf /, dd, mkfs, fork bombs) are blocked.
-- Destructive operations require explicit user confirmation.
-- Commands are classified as read/write/search/destructive before execution.
+## Payment Flow
 
-### Code Review
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant C as CLI
+    participant W as Wallet
+    participant E as Etherscan
+    participant L as Local License
 
-- Rule-based scanning only. Not a substitute for professional security audit.
-- Does not execute code or connect to external services (unless deep LLM
-  review is explicitly enabled).
+    U->>C: aitools price
+    C->>U: Show Bundle price + USDT address
+    U->>W: Send USDT ERC20
+    W->>U: Transaction hash
+    U->>C: aitools claim
+    C->>E: Verify transaction
+    E->>C: Confirm amount + receiver
+    C->>L: Activate Pro locally
+    C->>U: Pro activated, all tools unlocked
+```
 
-### SQL Generation
+## Auto-Maintenance Loop
 
-- Default mode generates SQL only; does not connect to databases.
-- Destructive statements (DROP, DELETE, UPDATE, ALTER) are blocked.
-- Users should never connect to production databases without manual review.
+```mermaid
+flowchart TD
+    A[Collect Issues] --> B[Classify Severity]
+    B --> C{Priority}
+    C -->|P0/P1| D[Auto Fix]
+    C -->|P2/P3| E[Review PR]
+    D --> F[Run Tests]
+    F --> G{Pass?}
+    G -->|Yes| H[Release Patch]
+    G -->|No| I[Rollback]
+    H --> J[Changelog]
+    J --> K[Daily Report]
+    I --> K
+    E --> K
+```
 
-### Image Generation
+## Revenue Loop
 
-- Uses OpenAI DALL-E 3. Users must comply with OpenAI's content policy.
-- API costs are billed by OpenAI directly.
+```mermaid
+flowchart TD
+    A[Trend Scan] --> B[Draft Content]
+    B --> C[GitHub / Landing Page]
+    C --> D[pip install]
+    D --> E[Free Trial 3x/day]
+    E --> F[Upgrade Prompt]
+    F --> G[USDT Payment]
+    G --> H[Auto Activation]
+    H --> I[Bundle Upsell]
+    I --> J[Feedback]
+    J --> K[Maintenance]
+    K --> C
+```
 
 ---
 
 ## Privacy
 
-- Tools run locally. No telemetry or usage data is collected.
-- LLM queries are sent to OpenAI (or your configured provider).
-- Etherscan API calls query public blockchain data.
-- No analytics, no tracking, no background telemetry.
+- All tools run **locally**. No telemetry, analytics, or usage data is collected.
+- LLM queries are sent to OpenAI (or your configured provider). Your API key
+  is stored locally and never transmitted to this project.
+- Etherscan API calls query public blockchain data only.
+- No user code is uploaded unless you explicitly enable a remote model API.
 
 ---
 
-## Limitations
+## Security
 
-- Requires internet access for LLM and Etherscan API calls.
-- PR review uses pattern matching; may miss issues.
-- SQL quality depends on the LLM model and schema information.
-- Image generation requires an OpenAI API key with DALL-E 3 access.
-- Maintained by a single developer; response times may vary.
+- Shell commands are classified as read/write/search/destructive before
+  execution. Dangerous patterns (`rm -rf /`, `dd`, `mkfs`, fork bombs,
+  `curl | bash`) are blocked.
+- Destructive operations require explicit user confirmation.
+- SQL tool generates queries only; it does not execute them by default.
+  Destructive SQL (`DROP`, `DELETE`, `UPDATE`, `ALTER`) is blocked.
+- PR Review uses rule-based pattern matching. Results are **advisory only**
+  and do not substitute for professional security audit.
+- API keys are stored locally in `~/.<tool-name>/config.json`.
 
 ---
 
-## Responsible Use
+## Limitations and Disclaimer
 
-Users agree to:
+- AI-generated output may contain errors. Users must review before acting.
+- PR Review uses pattern matching; it will not catch all bugs or vulnerabilities.
+- SQL quality depends on the LLM model and schema information provided.
+- Image generation requires an OpenAI API key with DALL-E 3 access. API costs
+  are billed by OpenAI.
+- License activation requires internet access for Etherscan API queries.
+- This project is maintained by a solo developer. Response times may vary.
 
-1. Review AI-generated content before acting on it.
-2. Not use these tools for illegal or malicious purposes.
-3. Comply with third-party API terms of service.
-4. Not bypass or redistribute the license activation system.
+See [DISCLAIMER.md](DISCLAIMER.md) for full legal disclaimers.
+
+---
+
+## FAQ
+
+**Q: Do I need an API key?**
+A: Yes. Each tool requires an OpenAI API key (or compatible provider). Set it
+via `ai --config` or the `OPENAI_API_KEY` environment variable.
+
+**Q: What if I send USDT on the wrong network?**
+A: Only ERC20 is supported. Transactions on other networks (BSC, Solana,
+TRC20) may be lost.
+
+**Q: Is my payment refundable?**
+A: All blockchain transactions are irreversible. Please verify the address
+and network before sending.
+
+**Q: What happens after I pay?**
+A: Run `aitools claim <tx_hash>`. The CLI verifies the transaction on
+Etherscan and activates Pro locally.
+
+**Q: Can I use the tools offline?**
+A: LLM features require internet. Shell command classification and basic
+error diagnosis work offline.
+
+**Q: Do you collect my data?**
+A: No. All tools run locally. No telemetry, no analytics, no tracking.
 
 ---
 
@@ -232,26 +287,16 @@ Users agree to:
 ```bash
 git clone https://github.com/autogz/ai-tools.git
 cd ai-tools
-# Each tool has its own directory:
-#   shell-hub/ (pypi: ai-shell-hub)
-#   pr-review/ (pypi: ai-pr-review)
-#   sqlx/      (pypi: ai-sqlx)
-#   img-cli/   (pypi: ai-img-cli)
+# Each tool has its own directory with a venv
 ```
-
----
 
 ## License
 
 MIT License. See [LICENSE](LICENSE).
 
-## Disclaimer
-
-See [DISCLAIMER.md](DISCLAIMER.md) for legal, security, and usage disclaimers.
-
 ## Security
 
-See [SECURITY.md](SECURITY.md) for reporting vulnerabilities.
+Report vulnerabilities via [SECURITY.md](SECURITY.md).
 
 ## Code of Conduct
 

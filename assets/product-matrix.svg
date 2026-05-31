@@ -1,0 +1,195 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0a0f"/>
+      <stop offset="100%" stop-color="#12121a"/>
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0066FF"/>
+      <stop offset="100%" stop-color="#0044CC"/>
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00CC88"/>
+      <stop offset="100%" stop-color="#009966"/>
+    </linearGradient>
+    <linearGradient id="card1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#14141e"/>
+    </linearGradient>
+    <linearGradient id="card2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#14141e"/>
+    </linearGradient>
+    <linearGradient id="card3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#14141e"/>
+    </linearGradient>
+    <linearGradient id="card4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#14141e"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#0066FF" flood-opacity="0.15"/>
+    </filter>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="400" fill="url(#bg)" rx="12"/>
+  <rect x="1" y="1" width="798" height="398" fill="none" stroke="#1a1a2e" stroke-width="1" rx="12"/>
+
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" fill="#e0e0e0" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold">AI Developer Tools Suite</text>
+  <line x1="300" y1="38" x2="500" y2="38" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="400" y="52" text-anchor="middle" fill="#555566" font-family="system-ui, sans-serif" font-size="9">Four powerful CLI tools for modern developers</text>
+
+  <!-- ===== CARD 1: AI Shell Hub ===== -->
+  <g filter="url(#shadow)">
+    <rect x="20" y="72" width="180" height="300" rx="10" fill="url(#card1)" stroke="#0066FF" stroke-width="1"/>
+    
+    <!-- Icon placeholder -->
+    <rect x="60" y="92" width="100" height="80" rx="10" fill="#0d0d18" stroke="#0066FF" stroke-width="1" stroke-dasharray="3,3"/>
+    <path d="M85,135 L100,120 L115,135" stroke="#0066FF" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M100,120 L100,142" stroke="#0066FF" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <text x="110" y="157" text-anchor="middle" fill="#555566" font-family="system-ui, sans-serif" font-size="7">SVG</text>
+
+    <!-- Name -->
+    <text x="110" y="202" text-anchor="middle" fill="#e0e0e0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">AI Shell Hub</text>
+    
+    <!-- Badge -->
+    <rect x="70" y="213" width="80" height="18" rx="9" fill="#0066FF" opacity="0.15"/>
+    <text x="110" y="225" text-anchor="middle" fill="#0066FF" font-family="monospace" font-size="8">aitools shell</text>
+
+    <!-- Description -->
+    <text x="110" y="252" text-anchor="middle" fill="#888899" font-family="system-ui, sans-serif" font-size="9">Natural language</text>
+    <text x="110" y="267" text-anchor="middle" fill="#888899" font-family="system-ui, sans-serif" font-size="9">command interface</text>
+    <text x="110" y="282" text-anchor="middle" fill="#888899" font-family="system-ui, sans-serif" font-size="9">for your terminal.</text>
+
+    <!-- Features -->
+    <line x1="40" y1="298" x2="180" y2="298" stroke="#1a1a2e" stroke-width="1"/>
+    <circle cx="45" cy="312" r="2" fill="#00CC88"/>
+    <text x="53" y="316" fill="#666677" font-family="system-ui, sans-serif" font-size="8">AI-powered autocomplete</text>
+    <circle cx="45" cy="328" r="2" fill="#00CC88"/>
+    <text x="53" y="332" fill="#666677" font-family="system-ui, sans-serif" font-size="8">Multi-shell support</text>
+    <circle cx="45" cy="344" r="2" fill="#00CC88"/>
+    <text x="53" y="348" fill="#666677" font-family="system-ui, sans-serif" font-size="8">Plugin ecosystem</text>
+
+    <!-- Bottom accent -->
+    <rect x="20" y="362" width="180" height="10" rx="0" fill="#0066FF" opacity="0.8"/>
+    <rect x="20" y="362" width="180" height="10" rx="0" fill="url(#blueGrad)"/>
+  </g>
+
+  <!-- ===== CARD 2: AI PR Review ===== -->
+  <g filter="url(#shadow)">
+    <rect x="213" y="72" width="180" height="300" rx="10" fill="url(#card2)" stroke="#0066FF" stroke-width="1"/>
+    
+    <!-- Icon placeholder -->
+    <rect x="253" y="92" width="100" height="80" rx="10" fill="#0d0d18" stroke="#0066FF" stroke-width="1" stroke-dasharray="3,3"/>
+    <rect x="278" y="105" width="18" height="22" rx="3" fill="none" stroke="#0066FF" stroke-width="1.5"/>
+    <rect x="310" y="105" width="18" height="22" rx="3" fill="none" stroke="#0066FF" stroke-width="1.5"/>
+    <line x1="278" y1="135" x2="328" y2="135" stroke="#0066FF" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <line x1="278" y1="145" x2="315" y2="145" stroke="#0066FF" stroke-width="1.5"/>
+    <text x="303" y="157" text-anchor="middle" fill="#555566" font-family="system-ui, sans-serif" font-size="7">SVG</text>
+
+    <!-- Name -->
+    <text x="303" y="202" text-anchor="middle" fill="#e0e0e0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">AI PR Review</text>
+    
+    <!-- Badge -->
+    <rect x="263" y="213" width="80" height="18" rx="9" fill="#0066FF" opacity="0.15"/>
+    <text x="303" y="225" text-anchor="middle" fill="#0066FF" font-family="monospace" font-size="8">aitools review</text>
+
+    <!-- Description -->
+    <text x="303" y="252" text-anchor="middle" fill="#888899" font-family="system-ui, sans-serif" font-size="9">Automated pull</text>
+    <text x="303" y="267" text-anchor="middle" fill="#888899" font-family="system-ui, sans-serif" font-size="9">request analysis</text>
+    <text x="303" y="282" text-anchor="middle" fill="#888899" font-family="system-ui, sans-serif" font-size="9">and feedback.</text>
+
+    <!-- Features -->
+    <line x1="233" y1="298" x2="373" y2="298" stroke="#1a1a2e" stroke-width="1"/>
+    <circle cx="238" cy="312" r="2" fill="#00CC88"/>
+    <text x="246" y="316" fill="#666677" font-family="system-ui, sans-serif" font-size="8">Code quality checks</text>
+    <circle cx="238" cy="328" r="2" fill="#00CC88"/>
+    <text x="246" y="332" fill="#666677" font-family="system-ui, sans-serif" font-size="8">Security scanning</text>
+    <circle cx="238" cy="344" r="2" fill="#00CC88"/>
+    <text x="246" y="348" fill="#666677" font-family="system-ui, sans-serif" font-size="8">Inline suggestions</text>
+
+    <!-- Bottom accent -->
+    <rect x="213" y="362" width="180" height="10" rx="0" fill="#0066FF" opacity="0.8"/>
+    <rect x="213" y="362" width="180" height="10" rx="0" fill="url(#blueGrad)"/>
+  </g>
+
+  <!-- ===== CARD 3: AI SQL ===== -->
+  <g filter="url(#shadow)">
+    <rect x="406" y="72" width="180" height="300" rx="10" fill="url(#card3)" stroke="#00CC88" stroke-width="1"/>
+    
+    <!-- Icon placeholder -->
+    <rect x="446" y="92" width="100" height="80" rx="10" fill="#0d0d18" stroke="#00CC88" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="496" y="117" text-anchor="middle" fill="#00CC88" font-family="monospace" font-size="16" font-weight="bold">SQL</text>
+    <rect x="465" y="130" width="62" height="22" rx="4" fill="none" stroke="#00CC88" stroke-width="1"/>
+    <text x="496" y="145" text-anchor="middle" fill="#555566" font-family="system-ui, sans-serif" font-size="7">SVG</text>
+
+    <!-- Name -->
+    <text x="496" y="202" text-anchor="middle" fill="#e0e0e0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">AI SQL</text>
+    
+    <!-- Badge -->
+    <rect x="456" y="213" width="80" height="18" rx="9" fill="#00CC88" opacity="0.15"/>
+    <text x="496" y="225" text-anchor="middle" fill="#00CC88" font-family="monospace" font-size="8">aitools sql</text>
+
+    <!-- Description -->
+    <text x="496" y="252" text-anchor="middle" fill="#888899" font-family="system-ui, sans-serif" font-size="9">Natural language</text>
+    <text x="496" y="267" text-anchor="middle" fill="#888899" font-family="system-ui, sans-serif" font-size="9">to SQL query</text>
+    <text x="496" y="282" text-anchor="middle" fill="#888899" font-family="system-ui, sans-serif" font-size="9">generator.</text>
+
+    <!-- Features -->
+    <line x1="426" y1="298" x2="566" y2="298" stroke="#1a1a2e" stroke-width="1"/>
+    <circle cx="431" cy="312" r="2" fill="#0066FF"/>
+    <text x="439" y="316" fill="#666677" font-family="system-ui, sans-serif" font-size="8">Multi-dialect support</text>
+    <circle cx="431" cy="328" r="2" fill="#0066FF"/>
+    <text x="439" y="332" fill="#666677" font-family="system-ui, sans-serif" font-size="8">Schema explorer</text>
+    <circle cx="431" cy="344" r="2" fill="#0066FF"/>
+    <text x="439" y="348" fill="#666677" font-family="system-ui, sans-serif" font-size="8">Query optimization</text>
+
+    <!-- Bottom accent -->
+    <rect x="406" y="362" width="180" height="10" rx="0" fill="#00CC88" opacity="0.8"/>
+    <rect x="406" y="362" width="180" height="10" rx="0" fill="url(#greenGrad)"/>
+  </g>
+
+  <!-- ===== CARD 4: AI Image CLI ===== -->
+  <g filter="url(#shadow)">
+    <rect x="599" y="72" width="180" height="300" rx="10" fill="url(#card4)" stroke="#00CC88" stroke-width="1"/>
+    
+    <!-- Icon placeholder -->
+    <rect x="639" y="92" width="100" height="80" rx="10" fill="#0d0d18" stroke="#00CC88" stroke-width="1" stroke-dasharray="3,3"/>
+    <circle cx="689" cy="122" r="14" fill="none" stroke="#00CC88" stroke-width="1.5"/>
+    <circle cx="689" cy="122" r="5" fill="#00CC88" opacity="0.4"/>
+    <rect x="675" y="138" width="28" height="20" rx="3" fill="none" stroke="#00CC88" stroke-width="1.5"/>
+    <text x="689" y="157" text-anchor="middle" fill="#555566" font-family="system-ui, sans-serif" font-size="7">SVG</text>
+
+    <!-- Name -->
+    <text x="689" y="202" text-anchor="middle" fill="#e0e0e0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">AI Image CLI</text>
+    
+    <!-- Badge -->
+    <rect x="649" y="213" width="80" height="18" rx="9" fill="#00CC88" opacity="0.15"/>
+    <text x="689" y="225" text-anchor="middle" fill="#00CC88" font-family="monospace" font-size="8">aitools image</text>
+
+    <!-- Description -->
+    <text x="689" y="252" text-anchor="middle" fill="#888899" font-family="system-ui, sans-serif" font-size="9">Generate and</text>
+    <text x="689" y="267" text-anchor="middle" fill="#888899" font-family="system-ui, sans-serif" font-size="9">transform images</text>
+    <text x="689" y="282" text-anchor="middle" fill="#888899" font-family="system-ui, sans-serif" font-size="9">from terminal.</text>
+
+    <!-- Features -->
+    <line x1="619" y1="298" x2="759" y2="298" stroke="#1a1a2e" stroke-width="1"/>
+    <circle cx="624" cy="312" r="2" fill="#0066FF"/>
+    <text x="632" y="316" fill="#666677" font-family="system-ui, sans-serif" font-size="8">Multi-model support</text>
+    <circle cx="624" cy="328" r="2" fill="#0066FF"/>
+    <text x="632" y="332" fill="#666677" font-family="system-ui, sans-serif" font-size="8">Batch processing</text>
+    <circle cx="624" cy="344" r="2" fill="#0066FF"/>
+    <text x="632" y="348" fill="#666677" font-family="system-ui, sans-serif" font-size="8">Custom resolutions</text>
+
+    <!-- Bottom accent -->
+    <rect x="599" y="362" width="180" height="10" rx="0" fill="#00CC88" opacity="0.8"/>
+    <rect x="599" y="362" width="180" height="10" rx="0" fill="url(#greenGrad)"/>
+  </g>
+</svg>

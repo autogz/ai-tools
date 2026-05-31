@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0a0f"/>
+      <stop offset="100%" stop-color="#12121a"/>
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0066FF"/>
+      <stop offset="100%" stop-color="#0044CC"/>
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00CC88"/>
+      <stop offset="100%" stop-color="#009966"/>
+    </linearGradient>
+    <linearGradient id="toolGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#12121a"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0066FF" flood-opacity="0.3"/>
+    </filter>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#0066FF"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#00CC88"/>
+    </marker>
+    <marker id="arrowGray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#555566"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bg)" rx="12"/>
+  <rect x="1" y="1" width="798" height="498" fill="none" stroke="#1a1a2e" stroke-width="1" rx="12"/>
+
+  <!-- Title -->
+  <text x="400" y="32" text-anchor="middle" fill="#e0e0e0" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold">System Architecture</text>
+  <line x1="280" y1="40" x2="520" y2="40" stroke="#1a1a2e" stroke-width="1"/>
+
+  <!-- ===== Row 1: Developer -> pip install -> Local CLI ===== -->
+
+  <!-- Developer Box -->
+  <rect x="30" y="65" width="100" height="40" rx="20" fill="url(#blueGrad)" filter="url(#shadow)"/>
+  <text x="80" y="90" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">Developer</text>
+
+  <!-- Arrow -> pip install -->
+  <line x1="130" y1="85" x2="170" y2="85" stroke="#0066FF" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+  <!-- pip install Box -->
+  <rect x="170" y="65" width="130" height="40" rx="8" fill="#1a1a2e" stroke="#0066FF" stroke-width="1.5"/>
+  <text x="235" y="82" text-anchor="middle" fill="#0066FF" font-family="monospace" font-size="11" font-weight="bold">pip install</text>
+  <text x="235" y="97" text-anchor="middle" fill="#888899" font-family="monospace" font-size="9">ai-tools-bundle</text>
+
+  <!-- Arrow -> Local CLI -->
+  <line x1="300" y1="85" x2="340" y2="85" stroke="#0066FF" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+  <!-- Local CLI Box -->
+  <rect x="340" y="58" width="140" height="54" rx="8" fill="url(#blueGrad)" filter="url(#shadow)"/>
+  <text x="410" y="80" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">aitools CLI</text>
+  <text x="410" y="98" text-anchor="middle" fill="#aaccff" font-family="monospace" font-size="10">Local Tool Bundle</text>
+
+  <!-- Arrow -> Tools Row -->
+  <line x1="480" y1="85" x2="520" y2="85" stroke="#0066FF" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+  <!-- Tools Label -->
+  <text x="590" y="72" text-anchor="middle" fill="#888899" font-family="system-ui, sans-serif" font-size="9" letter-spacing="2">TOOLS</text>
+
+  <!-- ===== Row 2: 4 Tool Boxes ===== -->
+
+  <!-- AI Shell Hub -->
+  <rect x="520" y="90" width="130" height="44" rx="6" fill="url(#toolGrad)" stroke="#0066FF" stroke-width="1" opacity="0.9"/>
+  <rect x="528" y="97" width="8" height="30" rx="2" fill="#0066FF"/>
+  <text x="546" y="112" fill="#e0e0e0" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">AI Shell Hub</text>
+  <text x="546" y="126" fill="#777788" font-family="system-ui, sans-serif" font-size="8">Natural language shell</text>
+
+  <!-- AI PR Review -->
+  <rect x="520" y="140" width="130" height="44" rx="6" fill="url(#toolGrad)" stroke="#0066FF" stroke-width="1" opacity="0.85"/>
+  <rect x="528" y="147" width="8" height="30" rx="2" fill="#0066FF"/>
+  <text x="546" y="162" fill="#e0e0e0" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">AI PR Review</text>
+  <text x="546" y="176" fill="#777788" font-family="system-ui, sans-serif" font-size="8">Automated code review</text>
+
+  <!-- AI SQL -->
+  <rect x="520" y="190" width="130" height="44" rx="6" fill="url(#toolGrad)" stroke="#0066FF" stroke-width="1" opacity="0.8"/>
+  <rect x="528" y="197" width="8" height="30" rx="2" fill="#0066FF"/>
+  <text x="546" y="212" fill="#e0e0e0" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">AI SQL</text>
+  <text x="546" y="226" fill="#777788" font-family="system-ui, sans-serif" font-size="8">Query generator</text>
+
+  <!-- AI Image CLI -->
+  <rect x="520" y="240" width="130" height="44" rx="6" fill="url(#toolGrad)" stroke="#0066FF" stroke-width="1" opacity="0.75"/>
+  <rect x="528" y="247" width="8" height="30" rx="2" fill="#0066FF"/>
+  <text x="546" y="262" fill="#e0e0e0" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">AI Image CLI</text>
+  <text x="546" y="276" fill="#777788" font-family="system-ui, sans-serif" font-size="8">Image generation</text>
+
+  <!-- ===== Middle Section: API Key + USDT Payment ===== -->
+
+  <!-- Divider -->
+  <line x1="30" y1="310" x2="770" y2="310" stroke="#1a1a2e" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Section label -->
+  <text x="400" y="300" text-anchor="middle" fill="#555566" font-family="system-ui, sans-serif" font-size="9" letter-spacing="2">ACTIVATION &amp; PAYMENT</text>
+
+  <!-- Your API Key -->
+  <rect x="60" y="325" width="200" height="54" rx="8" fill="#1a1a2e" stroke="#0066FF" stroke-width="1.5"/>
+  <text x="160" y="347" text-anchor="middle" fill="#e0e0e0" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">Your API Key</text>
+  <text x="160" y="365" text-anchor="middle" fill="#666677" font-family="monospace" font-size="9">sk_apt_xxxxxxxxxxxx</text>
+  <rect x="70" y="351" width="180" height="1" fill="#1a1a2e"/>
+
+  <!-- USDT Payment -->
+  <rect x="300" y="325" width="200" height="54" rx="8" fill="#1a1a2e" stroke="#00CC88" stroke-width="1.5"/>
+  <text x="400" y="347" text-anchor="middle" fill="#e0e0e0" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">USDT Payment</text>
+  <text x="400" y="365" text-anchor="middle" fill="#666677" font-family="monospace" font-size="9">ERC-20 / TRC-20</text>
+  <rect x="310" y="351" width="180" height="1" fill="#1a1a2e"/>
+
+  <!-- Plus sign between them -->
+  <text x="275" y="357" text-anchor="middle" fill="#555566" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">+</text>
+
+  <!-- Arrow down from both -->
+  <line x1="160" y1="379" x2="160" y2="410" stroke="#555566" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+  <line x1="400" y1="379" x2="400" y2="410" stroke="#555566" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+
+  <!-- Merge lines -->
+  <line x1="160" y1="410" x2="400" y2="410" stroke="#555566" stroke-width="1.5"/>
+  <line x1="400" y1="410" x2="400" y2="425" stroke="#555566" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+
+  <!-- ===== Bottom Row: Etherscan -> Local License ===== -->
+
+  <!-- Etherscan Verify -->
+  <rect x="120" y="425" width="240" height="50" rx="25" fill="#1a1a2e" stroke="#00CC88" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="240" y="448" text-anchor="middle" fill="#e0e0e0" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">Etherscan Verify</text>
+  <text x="240" y="464" text-anchor="middle" fill="#666677" font-family="system-ui, sans-serif" font-size="9">On-chain payment verification</text>
+  <circle cx="140" cy="450" r="4" fill="#00CC88" filter="url(#glow)"/>
+
+  <!-- Arrow -> Local License -->
+  <line x1="360" y1="450" x2="420" y2="450" stroke="#00CC88" stroke-width="2" marker-end="url(#arrowGreen)"/>
+
+  <!-- Local License -->
+  <rect x="420" y="425" width="240" height="50" rx="25" fill="url(#greenGrad)" filter="url(#shadow)"/>
+  <text x="540" y="448" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">Local License</text>
+  <text x="540" y="464" text-anchor="middle" fill="#ccffee" font-family="system-ui, sans-serif" font-size="9">Unlocked &amp; activated</text>
+  <circle cx="440" cy="450" r="4" fill="#ffffff" filter="url(#glow)"/>
+
+  <!-- Small decorative elements -->
+  <circle cx="45" cy="465" r="2" fill="#0066FF" opacity="0.3"/>
+  <circle cx="755" cy="35" r="2" fill="#00CC88" opacity="0.3"/>
+  <circle cx="755" cy="465" r="2" fill="#0066FF" opacity="0.2"/>
+</svg>
