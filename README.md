@@ -132,10 +132,10 @@ The Pro tier is unlocked via a one-time license activation that uses a USDT
 
 | Tier | Price (USDT) | Scope |
 |------|-------------|-------|
-| Shell Hub Pro | $7 | Unlimited shell AI queries |
-| PR Review Pro | $7 | Unlimited code reviews |
-| SQL Pro | $7 | Unlimited SQL generation |
-| Image CLI Pro | $4 | Unlimited image generation |
+| Shell Hub Pro | $7 | No daily usage limit |
+| PR Review Pro | $7 | No daily usage limit |
+| SQL Pro | $7 | No daily usage limit |
+| Image CLI Pro | $4 | No daily usage limit |
 | Bundle | $10 | All four tools |
 
 ### Payment Address
@@ -165,8 +165,8 @@ ai-sqlx claim <transaction_hash>
 ai-img claim <transaction_hash>
 ```
 
-Activation is deterministic: the same transaction always produces the same
-activation code. No remote server is contacted for activation.
+Activation produces a deterministic activation code derived from the
+transaction. No remote server is contacted for activation.
 
 ---
 
