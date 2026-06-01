@@ -81,7 +81,7 @@ ai-img -s 1792x1024 "wide landscape"
 | PR Review Pro | $7 lifetime | Code review only |
 | SQL Pro | $7 lifetime | SQL generation only |
 | Image CLI Pro | $4 lifetime | Image generation only |
-| Free | $0 | 3 calls/day across all tools |
+| Free | $0 | 1 trial across all tools |
 
 ---
 
