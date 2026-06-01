@@ -6,7 +6,6 @@ Pay once. Use forever.
 
 [![PyPI - ai-dev-tools](https://img.shields.io/badge/PyPI-ai--dev--tools-blue)](https://pypi.org/project/ai-shell-hub/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![CI](https://github.com/autogz/ai-tools/actions/workflows/ci.yml/badge.svg)](https://github.com/autogz/ai-tools/actions/workflows/ci.yml)
 
 ---
 
@@ -53,8 +52,8 @@ ai -H
 ### AI PR Review
 
 ```bash
-pr-review https://github.com/owner/repo/pull/123
-pr-review https://github.com/owner/repo/pull/123 --deep
+pr-review https://github.com/example/repo/pull/123
+pr-review https://github.com/example/repo/pull/123 --deep
 ```
 
 ### AI SQL
