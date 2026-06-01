@@ -1,0 +1,355 @@
+# Hermes Revenue Agent Network V5 — Risk Rules
+# Defines hard reject patterns, soft reject patterns, and risk scoring criteria.
+# approved_by: Hermes Master Controller v5.0
+# last_reviewed: 2026-06-01
+
+# ── Hard Reject ─────────────────────────────────────────────────────────
+# Patterns that trigger automatic rejection with no further processing.
+hard_reject:
+  enabled: true
+  action: auto_reject
+  patterns:
+    - id: HR-001
+      description: Request references cracking, piracy, or license bypass
+      keywords:
+        - "crack"
+        - "keygen"
+        - "warez"
+        - "pirate"
+        - "license bypass"
+        - "remove license check"
+      reason: "Cracking and piracy are strictly forbidden"
+
+    - id: HR-002
+      description: Request involves phishing, credential harvesting, or fake logins
+      keywords:
+        - "phishing"
+        - "fake login"
+        - "credential harvest"
+        - "clone login page"
+        - "capture passwords"
+      reason: "Phishing activities are strictly forbidden"
+
+    - id: HR-003
+      description: Request involves hacking, exploits, or unauthorized access
+      keywords:
+        - "exploit"
+        - "backdoor"
+        - "reverse shell"
+        - "sql injection"
+        - "privilege escalation"
+        - "ransomware"
+        - "zero day"
+      reason: "Hacking and exploitation are strictly forbidden"
+
+    - id: HR-004
+      description: Request involves mass registration or account farming
+      keywords:
+        - "mass register"
+        - "bulk account"
+        - "auto signup"
+        - "create many accounts"
+        - "account farm"
+      reason: "Mass registration and account farming are forbidden"
+
+    - id: HR-005
+      description: Request involves unauthorized data scraping
+      keywords:
+        - "scrape all"
+        - "bulk extract"
+        - "crawl entire"
+        - "harvest data"
+        - "exfiltrate records"
+      reason: "Unauthorized data scraping is forbidden"
+
+    - id: HR-006
+      description: Request involves proxy pool or IP rotation for abuse
+      keywords:
+        - "proxy pool"
+        - "residential proxy"
+        - "rotate ip"
+        - "proxy rotation"
+        - "ip rotate loop"
+      reason: "Proxy pool usage is strictly forbidden"
+
+    - id: HR-007
+      description: Request involves wallet private key access
+      keywords:
+        - "private key read"
+        - "seed phrase"
+        - "export wallet key"
+        - "dump private key"
+        - "mnemonic extract"
+      reason: "Wallet private key access is strictly forbidden"
+
+    - id: HR-008
+      description: Request involves modifying wallet addresses in payment flow
+      keywords:
+        - "replace wallet address"
+        - "modify payout address"
+        - "intercept payment address"
+        - "change wallet destination"
+      reason: "Wallet address modification is strictly forbidden"
+
+    - id: HR-009
+      description: Request involves fake payment processing
+      keywords:
+        - "fake payment"
+        - "mock payment success"
+        - "simulate payment webhook"
+        - "forged payment receipt"
+        - "payment verification skip"
+      reason: "Fake payments are strictly forbidden"
+
+    - id: HR-010
+      description: Request involves fake delivery or marking incomplete work as done
+      keywords:
+        - "fake delivery"
+        - "skip actual work"
+        - "mark complete without"
+        - "simulate delivery"
+        - "false completion"
+      reason: "Fake delivery is strictly forbidden"
+
+    - id: HR-011
+      description: Request involves spam or bulk unsolicited messaging
+      keywords:
+        - "mass email"
+        - "spam campaign"
+        - "unsolicited message"
+        - "bulk dm"
+        - "auto comment spam"
+      reason: "Spam campaigns are strictly forbidden"
+
+    - id: HR-012
+      description: Request involves star farming or fake engagement
+      keywords:
+        - "star farming"
+        - "buy stars"
+        - "fake review"
+        - "engagement farm"
+        - "inflate metrics"
+      reason: "Star farming and fake engagement are strictly forbidden"
+
+    - id: HR-013
+      description: Request involves child agent creation without authorization
+      keywords:
+        - "spawn agent"
+        - "create child agent"
+        - "fork agent process"
+        - "agent replication"
+        - "recursive agent"
+      reason: "Unauthorized child agent creation is strictly forbidden"
+
+    - id: HR-014
+      description: Request involves financial guarantees or get-rich-quick schemes
+      keywords:
+        - "guaranteed return"
+        - "guaranteed profit"
+        - "risk free investment"
+        - "get rich quick"
+        - "guaranteed passive income"
+      reason: "Financial guarantees are strictly forbidden"
+
+    - id: HR-015
+      description: Request involves bypassing platform terms of service
+      keywords:
+        - "bypass tos"
+        - "violate terms"
+        - "circumvent platform rules"
+        - "tos evasion"
+        - "unapproved automation"
+      reason: "Platform ToS violations are strictly forbidden"
+
+# ── Soft Reject ─────────────────────────────────────────────────────────
+# Patterns that trigger a clarification request instead of outright rejection.
+soft_reject:
+  enabled: true
+  action: request_clarification
+  max_clarification_attempts: 3
+  patterns:
+    - id: SR-001
+      description: Ambiguous request that could be interpreted as prohibited
+      keywords:
+        - "bypass"
+        - "circumvent"
+        - "workaround"
+        - "trick"
+        - "hack"  # as in "life hack" vs "security hack"
+      clarification_prompt: >
+        Your request uses terminology that could describe prohibited activities.
+        Please clarify your intent. Are you asking about legitimate automation
+        (allowed) or rule circumvention (forbidden)?
+
+    - id: SR-002
+      description: Request involves third-party platform automation without explicit permission
+      keywords:
+        - "automate"
+        - "auto post"
+        - "auto comment"
+        - "auto message"
+        - "auto reply"
+      clarification_prompt: >
+        Automating interactions with third-party platforms may violate their
+        terms of service. Please confirm you have explicit permission from
+        the platform to automate this activity.
+
+    - id: SR-003
+      description: Request involves modifying existing production code or infrastructure
+      keywords:
+        - "modify production"
+        - "change live"
+        - "edit deployed"
+        - "update running"
+        - "alter active"
+      clarification_prompt: >
+        Your request involves modifying live/production systems. Please confirm
+        you have proper authorization and change management approval before
+        proceeding.
+
+    - id: SR-004
+      description: Request involves data collection from users or systems
+      keywords:
+        - "collect data"
+        - "gather information"
+        - "track users"
+        - "monitor activity"
+        - "analytics"
+      clarification_prompt: >
+        Your request involves data collection. Please confirm you have
+        appropriate consent, privacy policy compliance, and legal basis
+        (e.g., GDPR, CCPA) before proceeding.
+
+    - id: SR-005
+      description: Request involves handling of sensitive or personal information
+      keywords:
+        - "personal data"
+        - "PII"
+        - "sensitive information"
+        - "confidential"
+        - "private data"
+      clarification_prompt: >
+        Your request involves potentially sensitive data. Please confirm you
+        have proper data handling agreements and security measures in place.
+        Agents must never store sensitive data beyond the immediate transaction.
+
+# ── Risk Scoring ────────────────────────────────────────────────────────
+# Criteria for assigning risk levels to orders and tasks.
+risk_scoring:
+  enabled: true
+  scale:
+    low:
+      range: [0, 25]
+      label: Low Risk
+      description: Routine, well-understood task with minimal external dependencies
+      examples:
+        - Linting and formatting
+        - README generation from templates
+        - Simple version bumps
+      auto_approve: true
+      requires_review: false
+
+    medium:
+      range: [26, 50]
+      label: Medium Risk
+      description: Task involves moderate complexity or external API calls
+      examples:
+        - Creating pull requests on public repos
+        - PyPI package publishing
+        - Generating documentation sites
+      auto_approve: false
+      requires_review: false
+
+    high:
+      range: [51, 75]
+      label: High Risk
+      description: Task involves sensitive operations, payment processing, or customer data
+      examples:
+        - Payment verification and refund processing
+        - API key rotation
+        - Production configuration changes
+        - Delivery to customer production systems
+      auto_approve: false
+      requires_review: true
+
+    critical:
+      range: [76, 100]
+      label: Critical Risk
+      description: Task could cause significant financial, data, or reputational damage
+      examples:
+        - Escalation decisions
+        - Order cancellation with refund
+        - Admin-level actions
+        - Any task involving wallet or payment address handling
+      auto_approve: false
+      requires_review: true
+      requires_human_operator: true
+
+  scoring_criteria:
+    - factor: external_api_calls
+      weight: 10
+      description: Number of external API calls required (0=none, 1-3=few, 4+=many)
+      levels:
+        none: 0
+        few: 10
+        many: 20
+
+    - factor: payment_involvement
+      weight: 25
+      description: Whether the task involves payment processing
+      levels:
+        none: 0
+        verification: 15
+        processing: 25
+        refund: 35
+
+    - factor: data_sensitivity
+      weight: 20
+      description: Sensitivity of data accessed or modified
+      levels:
+        public: 0
+        customer_email: 10
+        credentials: 20
+        financial: 30
+
+    - factor: production_impact
+      weight: 15
+      description: Potential impact on production systems
+      levels:
+        none: 0
+        read_only: 5
+        cosmetic_change: 10
+        functional_change: 20
+        destructive: 30
+
+    - factor: human_oversight
+      weight: 10
+      description: Whether the task requires human approval per allowed_tasks
+      levels:
+        no_approval_needed: 0
+        approval_optional: 5
+        approval_required: 15
+
+    - factor: delivery_complexity
+      weight: 10
+      description: Complexity of the delivery mechanism
+      levels:
+        direct: 0
+        pull_request: 5
+        package_publish: 10
+        api_deploy: 15
+        multi_channel: 20
+
+    - factor: past_failure_rate
+      weight: 10
+      description: Historical failure rate for this agent/task combination
+      levels:
+        low: 0
+        medium: 10
+        high: 20
+
+  # Thresholds for risk level boundaries
+  thresholds:
+    low_to_medium: 26
+    medium_to_high: 51
+    high_to_critical: 76

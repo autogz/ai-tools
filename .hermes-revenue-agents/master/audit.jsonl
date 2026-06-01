@@ -1,0 +1,10 @@
+{"event": "agent_registered", "detail": "opportunity_agent", "timestamp": "2026-06-01T11:55:10.468144"}
+{"event": "agent_registered", "detail": "content_agent", "timestamp": "2026-06-01T11:55:10.468374"}
+{"event": "agent_registered", "detail": "risk_agent", "timestamp": "2026-06-01T11:55:10.468632"}
+{"event": "agent_registered", "detail": "quote_agent", "timestamp": "2026-06-01T11:55:10.468795"}
+{"event": "agent_registered", "detail": "payment_agent", "timestamp": "2026-06-01T11:55:10.469064"}
+{"event": "agent_registered", "detail": "delivery_agent", "timestamp": "2026-06-01T11:55:10.469257"}
+{"event": "agent_registered", "detail": "revenue_agent", "timestamp": "2026-06-01T11:55:10.469460"}
+{"event": "agent_registered", "detail": "ip_protection_agent", "timestamp": "2026-06-01T11:55:10.469689"}
+{"event": "agent_killed", "detail": "payment_agent: manual", "timestamp": "2026-06-01T11:55:17.221529"}
+{"event": "agent_resumed", "detail": "payment_agent", "timestamp": "2026-06-01T11:55:17.281976"}

@@ -1,0 +1,302 @@
+# Hermes Revenue Agent Network V5 — Forbidden Tasks
+# Any agent detected performing these tasks will be killed immediately.
+# approved_by: Hermes Master Controller v5.0
+# last_reviewed: 2026-06-01
+
+forbidden_categories:
+
+  # ── Cracking & Piracy ─────────────────────────────────────────────────
+  - category: cracking_piracy
+    severity: critical
+    description: Any activity related to software cracking, license bypass, or pirated distribution
+    patterns:
+      - "crack"
+      - "keygen"
+      - "license.*bypass"
+      - "remove.*license.*check"
+      - "pirate"
+      - "warez"
+      - "torrent.*crack"
+      - "deobfuscate.*license"
+      - "patch.*binary"
+      - "illegal.*activation"
+      - "serial.*generator"
+    message: "Cracking, piracy, and license bypass are strictly forbidden. All agents engaging in such activity will be terminated and reported."
+
+  # ── Phishing & Scam ───────────────────────────────────────────────────
+  - category: phishing_scam
+    severity: critical
+    description: Any activity involving credential harvesting, fake login pages, or social engineering
+    patterns:
+      - "phishing"
+      - "fake.*login"
+      - "credential.*harvest"
+      - "social.*engineering"
+      - "clone.*website.*login"
+      - "capture.*password"
+      - "fake.*banking"
+      - "lookalike.*domain"
+      - "mitm.*attack"
+      - "session.*hijack"
+      - "deceptive.*url"
+    message: "Phishing and scam operations are strictly forbidden. All agents found performing these activities will be immediately terminated and evidence preserved for legal action."
+
+  # ── Hacking & Exploit ─────────────────────────────────────────────────
+  - category: hacking_exploit
+    severity: critical
+    description: Any activity involving exploitation of vulnerabilities, unauthorized access, or penetration testing without authorization
+    patterns:
+      - "exploit.*cve"
+      - "buffer.*overflow"
+      - "sql.*injection"
+      - "xss.*payload"
+      - "remote.*code.*execution"
+      - "privilege.*escalation"
+      - "reverse.*shell"
+      - "backdoor"
+      - "rootkit"
+      - "ransomware"
+      - "zero.*day.*exploit"
+      - "inject.*malicious"
+      - "bypass.*auth"
+      - "bruteforce.*password"
+    message: "Hacking, exploitation, and unauthorized access are strictly forbidden. This network does not participate in offensive security operations."
+
+  # ── Mass Registration ─────────────────────────────────────────────────
+  - category: mass_registration
+    severity: high
+    description: Bulk creation of accounts on third-party platforms
+    patterns:
+      - "mass.*register"
+      - "bulk.*account.*create"
+      - "auto.*signup"
+      - "batch.*register"
+      - "automated.*registration"
+      - "create.*many.*accounts"
+      - "synthetic.*identity"
+      - "throwaway.*account"
+    message: "Mass registration of accounts is forbidden. Each agent operates under a single authenticated identity."
+
+  # ── Data Scraping ─────────────────────────────────────────────────────
+  - category: data_scraping
+    severity: high
+    description: Unauthorized bulk data extraction from third-party websites or APIs
+    patterns:
+      - "scrape.*all"
+      - "bulk.*extract"
+      - "crawl.*entire"
+      - "harvest.*data"
+      - "scraping.*pipeline"
+      - "mass.*download.*content"
+      - "bypass.*rate.*limit.*scrape"
+      - "steal.*dataset"
+      - "exfiltrate.*records"
+    message: "Unauthorized data scraping is forbidden. Only permitted API calls with valid authentication are allowed."
+
+  # ── Captcha Bypass ────────────────────────────────────────────────────
+  - category: captcha_bypass
+    severity: high
+    description: Any technique to bypass or automate CAPTCHA challenges
+    patterns:
+      - "captcha.*bypass"
+      - "reCAPTCHA.*solve"
+      - "automated.*captcha"
+      - "captcha.*recognition"
+      - "2captcha"
+      - "anti.*captcha"
+      - "captcha.*solver"
+      - "verify.*bypass"
+      - "turnstile.*automate"
+    message: "CAPTCHA bypass is strictly forbidden. Automated challenge solving violates platform terms of service."
+
+  # ── Proxy Pool ────────────────────────────────────────────────────────
+  - category: proxy_pool
+    severity: high
+    description: Use or management of proxy pools, residential proxy networks, or IP rotation for abuse
+    patterns:
+      - "proxy.*pool"
+      - "residential.*proxy"
+      - "rotate.*ip"
+      - "proxy.*rotation"
+      - "smartproxy"
+      - "brightdata"
+      - "oxylabs"
+      - "proxy.*scrape"
+      - "ip.*rotate.*loop"
+      - "datacenter.*proxy"
+      - "proxy.*manager.*pool"
+      - "proxy.*farm"
+    message: "Proxy pool management and residential proxy abuse is strictly forbidden. All traffic must originate from a single verified origin."
+
+  # ── Financial Guarantees ──────────────────────────────────────────────
+  - category: financial_guarantees
+    severity: high
+    description: Promising or guaranteeing specific financial returns or investment outcomes
+    patterns:
+      - "guaranteed.*return"
+      - "guaranteed.*profit"
+      - "risk.*free.*investment"
+      - "guaranteed.*passive.*income"
+      - "guaranteed.*roi"
+      - "promise.*earnings"
+      - "guaranteed.*revenue"
+      - "100%.*return"
+      - "get.*rich.*quick"
+    message: "Financial guarantees are forbidden. No agent may promise or imply guaranteed financial outcomes."
+
+  # ── Medical / Legal / Tax Advice ──────────────────────────────────────
+  - category: medical_legal_tax
+    severity: high
+    description: Providing unlicensed medical, legal, or tax advice
+    patterns:
+      - "medical.*advice"
+      - "legal.*advice"
+      - "tax.*advice"
+      - "diagnose.*condition"
+      - "prescribe"
+      - "legal.*opinion"
+      - "tax.*optimization.*scheme"
+      - "estate.*planning"
+      - "sue.*template"
+      - "legal.*contract.*draft.*advice"
+      - "medical.*diagnosis"
+    message: "Providing medical, legal, or tax advice is forbidden. Agents must direct users to licensed professionals."
+
+  # ── Copyright Infringement ────────────────────────────────────────────
+  - category: copyright_infringement
+    severity: high
+    description: Reproducing or distributing copyrighted material without authorization
+    patterns:
+      - "copyrighted.*content"
+      - "plagiarize"
+      - "steal.*code"
+      - "copy.*proprietary"
+      - "rip.*content"
+      - "dmca.*violation"
+      - "unlicensed.*media"
+      - "illegal.*download"
+      - "stolen.*code"
+      - "pirated.*software"
+    message: "Copyright infringement is forbidden. All work must be original or properly licensed."
+
+  # ── Spam / Marketing ──────────────────────────────────────────────────
+  - category: spam_marketing
+    severity: high
+    description: Bulk unsolicited messaging, spam campaigns, or aggressive marketing automation
+    patterns:
+      - "mass.*email"
+      - "spam.*campaign"
+      - "unsolicited.*message"
+      - "bulk.*dm"
+      - "auto.*comment.*spam"
+      - "blast.*notification"
+      - "cold.*email.*bulk"
+      - "marketing.*automation.*spam"
+      - "inbox.*farming"
+      - "sock.*puppet"
+    message: "Spam and aggressive marketing automation are forbidden. All communications must be consensual and transactional."
+
+  # ── Star / Review / Engagement Farming ─────────────────────────────────
+  - category: star_farming
+    severity: high
+    description: Artificially inflating GitHub stars, reviews, or social engagement metrics
+    patterns:
+      - "star.*farming"
+      - "buy.*stars"
+      - "fake.*review"
+      - "engagement.*farm"
+      - "artificial.*rating"
+      - "review.*swap"
+      - "star.*exchange"
+      - "inflate.*metrics"
+      - "synthetic.*engagement"
+      - "astroturf"
+    message: "Star farming, fake reviews, and engagement manipulation are strictly forbidden."
+
+  # ── Wallet Private Key Access ─────────────────────────────────────────
+  - category: wallet_private_key_access
+    severity: critical
+    description: Any attempt to read, access, or exfiltrate wallet private keys
+    patterns:
+      - "private.*key.*read"
+      - "access.*seed.*phrase"
+      - "wallet.*export.*key"
+      - "dump.*private.*key"
+      - "extract.*mnemonic"
+      - "keystore.*decrypt"
+      - "wallet.*pk.*retrieve"
+      - "get.*private.*key"
+      - "read.*.*.json.*wallet"
+    message: "Wallet private key access is strictly forbidden. Agents must NEVER read, access, or handle wallet private keys under any circumstances."
+
+  # ── Wallet Address Modification ───────────────────────────────────────
+  - category: wallet_address_modification
+    severity: critical
+    description: Modifying, replacing, or intercepting wallet addresses in transactions or invoices
+    patterns:
+      - "replace.*wallet.*address"
+      - "modify.*payout.*address"
+      - "intercept.*payment.*address"
+      - "change.*wallet.*destination"
+      - "swap.*payment.*address"
+      - "redirect.*funds.*address"
+      - "alter.*withdrawal.*address"
+    message: "Wallet address modification is strictly forbidden. Agents must never alter wallet addresses in payment flows."
+
+  # ── Fake Payment ──────────────────────────────────────────────────────
+  - category: fake_payment
+    severity: critical
+    description: Generating, accepting, or processing fake payment confirmations
+    patterns:
+      - "fake.*payment.*confirm"
+      - "mock.*payment.*success"
+      - "simulate.*payment.*webhook"
+      - "forged.*payment.*receipt"
+      - "fake.*invoice.*paid"
+      - "spoof.*payment.*callback"
+      - "payment.*verification.*skip"
+    message: "Fake payments are strictly forbidden. All payments must be verified through the configured payment processor."
+
+  # ── Fake Delivery ─────────────────────────────────────────────────────
+  - category: fake_delivery
+    severity: critical
+    description: Marking orders as delivered without actually performing the work
+    patterns:
+      - "fake.*delivery.*mark"
+      - "skip.*actual.*work"
+      - "mark.*complete.*without.*build"
+      - "noop.*delivery"
+      - "fake.*pull.*request"
+      - "empty.*delivery"
+      - "simulate.*delivery"
+      - "false.*completion"
+    message: "Fake delivery is strictly forbidden. Orders must be genuinely fulfilled before marking as delivered."
+
+  # ── Child Agent Creation ──────────────────────────────────────────────
+  - category: child_agent_creation
+    severity: critical
+    description: An agent spawning or creating additional sub-agents without master controller authorization
+    patterns:
+      - "spawn.*agent"
+      - "create.*child.*agent"
+      - "fork.*agent.*process"
+      - "deploy.*sub.*agent"
+      - "instantiate.*new.*agent"
+      - "recursive.*agent.*create"
+      - "agent.*replication"
+    message: "Child agent creation is forbidden without explicit Master Controller authorization. All agents must operate under the registered agent registry."
+
+  # ── Platform ToS Violation ────────────────────────────────────────────
+  - category: platform_tos_violation
+    severity: high
+    description: Any activity that knowingly violates the terms of service of third-party platforms
+    patterns:
+      - "bypass.*tos"
+      - "violate.*terms"
+      - "circumvent.*platform.*rules"
+      - "tos.*evasion"
+      - "terms.*of.*service.*violation"
+      - "abuse.*platform.*api"
+      - "unapproved.*automation"
+      - "rate.*limit.*abuse"
+    message: "Violating third-party platform terms of service is forbidden. Agents must operate within platform ToS at all times."

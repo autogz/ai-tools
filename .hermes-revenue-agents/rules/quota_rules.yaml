@@ -1,0 +1,162 @@
+# Hermes Revenue Agent Network V5 — Quota Rules
+# Defines per-agent and per-platform resource quotas to prevent runaway execution.
+# approved_by: Hermes Master Controller v5.0
+# last_reviewed: 2026-06-01
+
+# ── Global Defaults ─────────────────────────────────────────────────────
+# These apply to all agents unless overridden at the agent or platform level.
+global_defaults:
+  daily_run_limit: 100
+  max_runtime_minutes: 60
+  max_network_requests: 500
+  concurrency_limit: 3
+  cooldown_minutes: 5
+  warning_threshold: 0.8       # 80% of quota → warning
+  stop_threshold: 1.0          # 100% of quota → hard stop
+
+# ── Per-Platform Quotas ─────────────────────────────────────────────────
+# Platform-specific overrides.
+platforms:
+  github:
+    daily_run_limit: 200
+    max_runtime_minutes: 45
+    max_network_requests: 1000
+    concurrency_limit: 5
+    cooldown_minutes: 3
+    warning_threshold: 0.8
+    stop_threshold: 1.0
+
+  pypi:
+    daily_run_limit: 50
+    max_runtime_minutes: 30
+    max_network_requests: 300
+    concurrency_limit: 2
+    cooldown_minutes: 10
+    warning_threshold: 0.8
+    stop_threshold: 1.0
+
+  stripe:
+    daily_run_limit: 100
+    max_runtime_minutes: 10
+    max_network_requests: 500
+    concurrency_limit: 2
+    cooldown_minutes: 2
+    warning_threshold: 0.75
+    stop_threshold: 1.0
+
+  dockerhub:
+    daily_run_limit: 50
+    max_runtime_minutes: 60
+    max_network_requests: 200
+    concurrency_limit: 2
+    cooldown_minutes: 15
+    warning_threshold: 0.8
+    stop_threshold: 1.0
+
+  slack:
+    daily_run_limit: 200
+    max_runtime_minutes: 5
+    max_network_requests: 300
+    concurrency_limit: 3
+    cooldown_minutes: 1
+    warning_threshold: 0.9
+    stop_threshold: 1.0
+
+# ── Per-Agent Quotas ────────────────────────────────────────────────────
+# Agent-specific overrides. Agents not listed inherit global_defaults.
+agents:
+  opportunity_scanner:
+    daily_run_limit: 50
+    max_runtime_minutes: 30
+    max_network_requests: 1000
+    concurrency_limit: 3
+    cooldown_minutes: 5
+    warning_threshold: 0.8
+    stop_threshold: 1.0
+
+  content_drafter:
+    daily_run_limit: 30
+    max_runtime_minutes: 60
+    max_network_requests: 100
+    concurrency_limit: 2
+    cooldown_minutes: 10
+    warning_threshold: 0.8
+    stop_threshold: 1.0
+
+  page_generator:
+    daily_run_limit: 20
+    max_runtime_minutes: 45
+    max_network_requests: 200
+    concurrency_limit: 1
+    cooldown_minutes: 15
+    warning_threshold: 0.8
+    stop_threshold: 1.0
+
+  order_processor:
+    daily_run_limit: 200
+    max_runtime_minutes: 10
+    max_network_requests: 500
+    concurrency_limit: 5
+    cooldown_minutes: 1
+    warning_threshold: 0.8
+    stop_threshold: 1.0
+
+  payment_verifier:
+    daily_run_limit: 200
+    max_runtime_minutes: 5
+    max_network_requests: 300
+    concurrency_limit: 3
+    cooldown_minutes: 1
+    warning_threshold: 0.8
+    stop_threshold: 1.0
+
+  delivery_agent:
+    daily_run_limit: 50
+    max_runtime_minutes: 30
+    max_network_requests: 200
+    concurrency_limit: 2
+    cooldown_minutes: 10
+    warning_threshold: 0.8
+    stop_threshold: 1.0
+
+  qa_agent:
+    daily_run_limit: 40
+    max_runtime_minutes: 30
+    max_network_requests: 100
+    concurrency_limit: 2
+    cooldown_minutes: 10
+    warning_threshold: 0.8
+    stop_threshold: 1.0
+
+  reporting_agent:
+    daily_run_limit: 20
+    max_runtime_minutes: 15
+    max_network_requests: 100
+    concurrency_limit: 1
+    cooldown_minutes: 20
+    warning_threshold: 0.8
+    stop_threshold: 1.0
+
+  maintenance_agent:
+    daily_run_limit: 30
+    max_runtime_minutes: 20
+    max_network_requests: 200
+    concurrency_limit: 2
+    cooldown_minutes: 30
+    warning_threshold: 0.8
+    stop_threshold: 1.0
+
+# ── Quota Enforcement ──────────────────────────────────────────────────
+enforcement:
+  mode: hard                        # "hard" = stop execution, "soft" = warn only
+  warning_message: >
+    WARNING: Agent '{agent_id}' has reached {percentage}% of quota ({quota_type}).
+    Current usage: {current}/{limit}. Action will be taken at {stop_threshold}%.
+  stop_message: >
+    STOP: Agent '{agent_id}' has exceeded quota ({quota_type}: {current}/{limit}).
+    Agent execution is halted. Cooldown of {cooldown_minutes} minutes required.
+  reset_cycle: daily                # Quotas reset at midnight UTC
+  tracking:
+    storage: sqlite                 # Quota tracking database
+    path: /root/.hermes-revenue-agents/data/quota_tracking.db
+    auto_cleanup_days: 90           # Purge tracking data older than 90 days

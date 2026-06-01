@@ -1,0 +1,195 @@
+# Hermes Revenue Agent Network V5 — Pricing Rules
+# Defines service offerings, tier pricing, and unique amount calculation.
+# approved_by: Hermes Master Controller v5.0
+# last_reviewed: 2026-06-01
+
+currency: USD
+payment_processor: stripe
+payment_webhook_secret_env_var: STRIPE_WEBHOOK_SECRET
+
+services:
+  # ── GitHub Repository Polish ──────────────────────────────────────────
+  - service_id: github_polish
+    name: GitHub Repository Polish
+    description: Automated README generation, CONTRIBUTING guide, issue templates, PR templates, and repo badges
+    tiers:
+      basic:
+        name: Basic Polish
+        price_cents: 999
+        features:
+          - README.md generation
+          - .gitignore setup
+          - License file
+        estimated_hours: 0.5
+      pro:
+        name: Pro Polish
+        price_cents: 2999
+        features:
+          - Everything in Basic
+          - CONTRIBUTING.md
+          - Issue & PR templates
+          - Badges & shields
+          - CHANGELOG.md
+        estimated_hours: 1.5
+      premium:
+        name: Premium Polish
+        price_cents: 7999
+        features:
+          - Everything in Pro
+          - GitHub Pages docs site
+          - CI/CD workflow files
+          - Code of conduct
+          - Security policy
+          - Funding config
+        estimated_hours: 4.0
+
+  # ── PyPI Package Release ──────────────────────────────────────────────
+  - service_id: pypi_release
+    name: PyPI Package Release
+    description: Build, version, and publish Python packages to PyPI with automated workflow
+    tiers:
+      basic:
+        name: Basic Release
+        price_cents: 1499
+        features:
+          - Single version bump
+          - Build & publish to PyPI
+          - Git tag
+        estimated_hours: 0.5
+      pro:
+        name: Pro Release
+        price_cents: 3999
+        features:
+          - Everything in Basic
+          - Automated changelog
+          - PyPI README rendering fix
+          - Package metadata audit
+        estimated_hours: 1.5
+      premium:
+        name: Premium Release
+        price_cents: 9999
+        features:
+          - Everything in Pro
+          - CI/CD pipeline setup (GitHub Actions)
+          - Test-PyPI staging
+          - Release checklist automation
+          - Multi-Python version wheel builds
+        estimated_hours: 4.0
+
+  # ── CLI Tool Development ──────────────────────────────────────────────
+  - service_id: cli_tool
+    name: CLI Tool Development
+    description: Build command-line tools with argument parsing, help text, and output formatting
+    tiers:
+      basic:
+        name: Basic CLI
+        price_cents: 2499
+        features:
+          - Single-command CLI
+          - argparse integration
+          - Basic help text
+        estimated_hours: 1.0
+      pro:
+        name: Pro CLI
+        price_cents: 5999
+        features:
+          - Everything in Basic
+          - Subcommand support
+          - Tab completion
+          - Colorized output
+          - Config file support
+        estimated_hours: 3.0
+      premium:
+        name: Premium CLI
+        price_cents: 14999
+        features:
+          - Everything in Pro
+          - Shell installer script
+          - Man page generation
+          - CI/CD with binary builds
+          - Cross-platform testing
+          - PyPI packaging
+        estimated_hours: 8.0
+
+  # ── Automation Script ─────────────────────────────────────────────────
+  - service_id: automation_script
+    name: Automation Script
+    description: Custom automation scripts for repetitive tasks, data processing, and workflow orchestration
+    tiers:
+      basic:
+        name: Basic Script
+        price_cents: 1999
+        features:
+          - Single-purpose script
+          - Input validation
+          - Error handling
+        estimated_hours: 1.0
+      pro:
+        name: Pro Script
+        price_cents: 4999
+        features:
+          - Everything in Basic
+          - Logging & monitoring
+          - Configuration via YAML
+          - Retry & recovery logic
+        estimated_hours: 2.5
+      premium:
+        name: Premium Script
+        price_cents: 12999
+        features:
+          - Everything in Pro
+          - Scheduling integration (cron/systemd)
+          - Notifications (email/slack)
+          - Docker containerization
+          - Comprehensive test suite
+        estimated_hours: 6.0
+
+  # ── Product Launch ────────────────────────────────────────────────────
+  - service_id: product_launch
+    name: Product Launch
+    description: Full launch package including landing page, announcement posts, and launch checklist
+    tiers:
+      basic:
+        name: Basic Launch
+        price_cents: 4999
+        features:
+          - Launch checklist
+          - One announcement post
+          - Basic landing page
+        estimated_hours: 2.0
+      pro:
+        name: Pro Launch
+        price_cents: 9999
+        features:
+          - Everything in Basic
+          - Multi-channel announcement
+          - Landing page with analytics
+          - Launch timeline
+          - Press kit
+        estimated_hours: 5.0
+      premium:
+        name: Premium Launch
+        price_cents: 24999
+        features:
+          - Everything in Pro
+          - Full marketing site
+          - Launch week strategy
+          - Social media campaign plan
+          - Product Hunt launch prep
+          - Analytics dashboard
+        estimated_hours: 12.0
+
+# ── Unique Amount Calculation ──────────────────────────────────────────
+# Each order gets a deterministic unique amount to prevent replay attacks.
+# unique_amount = base_price_cents + deterministic_tail(order_id)
+unique_amount:
+  enabled: true
+  method: deterministic_tail
+  tail_modulus: 97  # Prime number for uniform distribution of tails 0-96
+  min_tail_cents: 1
+  max_tail_cents: 96
+  description: >
+    Each invoice amount is computed as base_price_cents + (hash(order_id) % tail_modulus).
+    This ensures every order has a unique payment amount, preventing replay attacks
+    where a paid invoice could be used as proof of payment for a different order.
+    The tail is always at least 1 cent above the base price, never 0.

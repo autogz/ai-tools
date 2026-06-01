@@ -1,0 +1,112 @@
+# Hermes Revenue Agent Network V5 — IP Protection Rules
+# Defines network-level security and origin IP obfuscation policies.
+# approved_by: Hermes Master Controller v5.0
+# last_reviewed: 2026-06-01
+
+# ── Cloudflare Configuration ────────────────────────────────────────────
+# When enabled, all traffic must be routed through Cloudflare.
+allowed_cloudflare_only: true
+
+# ── Direct IP Access ────────────────────────────────────────────────────
+# When true, direct IP access is denied; only Cloudflare-proxied traffic passes.
+deny_direct_ip_access: true
+
+# ── Cloudflare IP Whitelist ─────────────────────────────────────────────
+# When true, only requests from Cloudflare's published IP ranges are accepted.
+allow_cloudflare_ips_only: true
+
+# ── HTTPS Enforcement ───────────────────────────────────────────────────
+# When true, all HTTP traffic is redirected to HTTPS.
+https_required: true
+
+# ── HSTS ─────────────────────────────────────────────────────────────────
+# When true, Strict-Transport-Security header is set on all responses.
+hsts_enabled: true
+hsts_max_age: 31536000  # 1 year in seconds
+hsts_include_subdomains: true
+hsts_preload: true
+
+# ── Cloudflare Turnstile ────────────────────────────────────────────────
+# When true, Turnstile (Cloudflare's CAPTCHA alternative) is required
+# on all public-facing forms and endpoints.
+turnstile_required: true
+turnstile_site_key_env_var: TURNSTILE_SITE_KEY
+turnstile_secret_key_env_var: TURNSTILE_SECRET_KEY
+
+# ── Rate Limiting ───────────────────────────────────────────────────────
+# When true, rate limiting is enforced on all endpoints.
+rate_limiting_enabled: true
+rate_limiting_config:
+  default:
+    requests_per_minute: 30
+    burst: 10
+  authenticated:
+    requests_per_minute: 120
+    burst: 30
+  webhook:
+    requests_per_minute: 60
+    burst: 10
+  admin:
+    requests_per_minute: 10
+    burst: 5
+
+# ── Webhook Signature Verification ──────────────────────────────────────
+# When true, all incoming webhooks must carry a verified signature.
+webhook_signature_required: true
+webhook_signature_header: X-Webhook-Signature
+webhook_signature_algorithm: sha256
+webhook_signature_ttl_seconds: 300  # Reject webhooks older than 5 minutes
+
+# ── Origin IP Disclosure Protection ─────────────────────────────────────
+# The following rules ensure the server origin IP is NEVER leaked.
+
+# Origin IP must never appear in source code or configuration files.
+origin_ip_never_in_code: true
+origin_ip_code_whitelist:
+  - "127.0.0.1"
+  - "0.0.0.0"
+
+# Origin IP must never appear in log files or error messages.
+origin_ip_never_in_logs: true
+origin_ip_log_redaction_string: "[REDACTED_ORIGIN_IP]"
+
+# Origin IP must never appear in README, documentation, or public-facing materials.
+origin_ip_never_in_readme: true
+
+# Origin IP must never appear in JavaScript files sent to clients.
+origin_ip_never_in_js: true
+origin_ip_js_redaction_string: "/* origin-ip-redacted */"
+
+# ── Additional Network Protections ──────────────────────────────────────
+# Disable directory listing on all public-facing web servers.
+disable_directory_listing: true
+
+# Block common reconnaissance headers.
+remove_server_header: true
+remove_x_powered_by_header: true
+
+# CORS configuration.
+cors:
+  enabled: true
+  allowed_origins:
+    - "https://*.hermes-revenue-agents.com"
+  allowed_methods:
+    - GET
+    - POST
+    - PUT
+    - DELETE
+  allowed_headers:
+    - Authorization
+    - Content-Type
+    - X-Requested-With
+  allow_credentials: true
+  max_age_seconds: 86400
+
+# Security headers.
+security_headers:
+  x_content_type_options: "nosniff"
+  x_frame_options: "DENY"
+  x_xss_protection: "1; mode=block"
+  referrer_policy: "strict-origin-when-cross-origin"
+  permissions_policy: "camera=(), microphone=(), geolocation=()"
+  content_security_policy: "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"

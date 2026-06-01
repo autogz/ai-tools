@@ -1,0 +1,320 @@
+# Hermes Revenue Agent Network V5 — Allowed Tasks
+# Each task defines what an agent may execute within the network.
+# approved_by: Hermes Master Controller v5.0
+# last_reviewed: 2026-06-01
+
+tasks:
+  # ── Opportunity Scanning ──────────────────────────────────────────────
+  - task_id: scan_pypi_outdated
+    category: opportunity_scanning
+    description: Scan PyPI repositories for outdated dependencies and surface upgrade opportunities
+    max_runtime_minutes: 10
+    requires_human_approval: false
+
+  - task_id: scan_github_trending
+    category: opportunity_scanning
+    description: Identify trending GitHub repos that could benefit from automation or polish services
+    max_runtime_minutes: 15
+    requires_human_approval: false
+
+  - task_id: scan_issue_bounty
+    category: opportunity_scanning
+    description: Scan open-source issue trackers for paid bounties or feature requests
+    max_runtime_minutes: 20
+    requires_human_approval: false
+
+  - task_id: scan_doc_gaps
+    category: opportunity_scanning
+    description: Analyze documentation gaps in popular open-source projects
+    max_runtime_minutes: 15
+    requires_human_approval: false
+
+  - task_id: scan_marketplace_listings
+    category: opportunity_scanning
+    description: Review marketplace listings for missing polish or broken integrations
+    max_runtime_minutes: 20
+    requires_human_approval: false
+
+  - task_id: scan_competitor_pricing
+    category: opportunity_scanning
+    description: Gather competitor pricing data for similar automation tools
+    max_runtime_minutes: 10
+    requires_human_approval: true
+
+  - task_id: scan_community_requests
+    category: opportunity_scanning
+    description: Parse community forums and Discord for feature requests matching agent capabilities
+    max_runtime_minutes: 15
+    requires_human_approval: false
+
+  - task_id: scan_vulnerability_alerts
+    category: opportunity_scanning
+    description: Monitor security vulnerability feeds relevant to the agent toolkit ecosystem
+    max_runtime_minutes: 10
+    requires_human_approval: false
+
+  # ── Content Drafting ──────────────────────────────────────────────────
+  - task_id: draft_readme
+    category: content_drafting
+    description: Generate or update a README.md for a repository
+    max_runtime_minutes: 15
+    requires_human_approval: true
+
+  - task_id: draft_contributing_guide
+    category: content_drafting
+    description: Draft CONTRIBUTING.md with PR guidelines, coding standards, and setup instructions
+    max_runtime_minutes: 20
+    requires_human_approval: true
+
+  - task_id: draft_changelog
+    category: content_drafting
+    description: Generate CHANGELOG.md from conventional commit history
+    max_runtime_minutes: 10
+    requires_human_approval: true
+
+  - task_id: draft_api_docs
+    category: content_drafting
+    description: Generate API reference documentation from docstrings or OpenAPI specs
+    max_runtime_minutes: 25
+    requires_human_approval: true
+
+  - task_id: draft_landing_copy
+    category: content_drafting
+    description: Write marketing copy for a product landing page
+    max_runtime_minutes: 20
+    requires_human_approval: true
+
+  - task_id: draft_tutorial
+    category: content_drafting
+    description: Create a step-by-step tutorial for a tool or service
+    max_runtime_minutes: 30
+    requires_human_approval: true
+
+  - task_id: draft_release_notes
+    category: content_drafting
+    description: Generate release notes from git tags and commit messages
+    max_runtime_minutes: 10
+    requires_human_approval: false
+
+  - task_id: draft_blog_post
+    category: content_drafting
+    description: Draft a technical blog post about a tool or workflow
+    max_runtime_minutes: 30
+    requires_human_approval: true
+
+  # ── Page Generation ───────────────────────────────────────────────────
+  - task_id: gen_landing_page
+    category: page_generation
+    description: Generate a full landing page HTML/CSS for a product or service
+    max_runtime_minutes: 30
+    requires_human_approval: true
+
+  - task_id: gen_docs_site
+    category: page_generation
+    description: Generate a static documentation site from markdown sources
+    max_runtime_minutes: 40
+    requires_human_approval: false
+
+  - task_id: gen_pricing_page
+    category: page_generation
+    description: Generate a pricing table page with tier comparisons
+    max_runtime_minutes: 20
+    requires_human_approval: true
+
+  - task_id: gen_contact_form
+    category: page_generation
+    description: Generate a contact or inquiry form page
+    max_runtime_minutes: 15
+    requires_human_approval: false
+
+  - task_id: gen_status_page
+    category: page_generation
+    description: Generate a service status / uptime page
+    max_runtime_minutes: 20
+    requires_human_approval: false
+
+  # ── Order Processing ──────────────────────────────────────────────────
+  - task_id: process_order_validation
+    category: order_processing
+    description: Validate incoming order data for completeness and correctness
+    max_runtime_minutes: 5
+    requires_human_approval: false
+
+  - task_id: process_order_assignment
+    category: order_processing
+    description: Assign validated order to the appropriate agent based on service type
+    max_runtime_minutes: 2
+    requires_human_approval: false
+
+  - task_id: process_order_escalation
+    category: order_processing
+    description: Escalate orders that exceed agent capability to human operator
+    max_runtime_minutes: 3
+    requires_human_approval: true
+
+  - task_id: process_order_cancellation
+    category: order_processing
+    description: Process order cancellation requests with refund validation
+    max_runtime_minutes: 5
+    requires_human_approval: true
+
+  - task_id: process_order_prioritization
+    category: order_processing
+    description: Apply priority queue logic for premium-tier orders
+    max_runtime_minutes: 2
+    requires_human_approval: false
+
+  # ── Payment Verification ──────────────────────────────────────────────
+  - task_id: verify_payment_signature
+    category: payment_verification
+    description: Verify webhook signature from payment processor
+    max_runtime_minutes: 1
+    requires_human_approval: false
+
+  - task_id: verify_payment_amount
+    category: payment_verification
+    description: Confirm payment amount matches invoice for the order
+    max_runtime_minutes: 2
+    requires_human_approval: false
+
+  - task_id: verify_payment_status
+    category: payment_verification
+    description: Check payment processor API for transaction confirmation
+    max_runtime_minutes: 3
+    requires_human_approval: false
+
+  - task_id: verify_refund_eligibility
+    category: payment_verification
+    description: Determine if an order is eligible for refund based on policy
+    max_runtime_minutes: 2
+    requires_human_approval: true
+
+  - task_id: verify_subscription_renewal
+    category: payment_verification
+    description: Verify subscription renewal payment before provisioning service
+    max_runtime_minutes: 2
+    requires_human_approval: false
+
+  # ── Delivery ──────────────────────────────────────────────────────────
+  - task_id: deliver_github_pr
+    category: delivery
+    description: Create a pull request on the target repository with generated content
+    max_runtime_minutes: 10
+    requires_human_approval: true
+
+  - task_id: deliver_pypi_package
+    category: delivery
+    description: Build and publish a package to PyPI
+    max_runtime_minutes: 15
+    requires_human_approval: true
+
+  - task_id: deliver_webhook_notification
+    category: delivery
+    description: Send delivery notification to customer webhook endpoint
+    max_runtime_minutes: 2
+    requires_human_approval: false
+
+  - task_id: deliver_email_summary
+    category: delivery
+    description: Send email summary of completed deliverables to the customer
+    max_runtime_minutes: 3
+    requires_human_approval: false
+
+  - task_id: deliver_cli_binary
+    category: delivery
+    description: Build and deliver a compiled CLI binary for the target platform
+    max_runtime_minutes: 20
+    requires_human_approval: true
+
+  # ── QA ────────────────────────────────────────────────────────────────
+  - task_id: qa_lint_check
+    category: qa
+    description: Run linting tools and report violations
+    max_runtime_minutes: 5
+    requires_human_approval: false
+
+  - task_id: qa_test_suite
+    category: qa
+    description: Execute test suite and collect results
+    max_runtime_minutes: 20
+    requires_human_approval: false
+
+  - task_id: qa_security_scan
+    category: qa
+    description: Run dependency security audit (pip-audit, npm audit, etc.)
+    max_runtime_minutes: 10
+    requires_human_approval: true
+
+  - task_id: qa_coverage_report
+    category: qa
+    description: Generate code coverage report from test execution
+    max_runtime_minutes: 15
+    requires_human_approval: false
+
+  - task_id: qa_accessibility_audit
+    category: qa
+    description: Run accessibility audit on generated pages
+    max_runtime_minutes: 15
+    requires_human_approval: true
+
+  # ── Reporting ─────────────────────────────────────────────────────────
+  - task_id: report_daily_summary
+    category: reporting
+    description: Generate daily summary of all agent activity and revenue
+    max_runtime_minutes: 5
+    requires_human_approval: false
+
+  - task_id: report_weekly_trends
+    category: reporting
+    description: Generate weekly trend analysis with charts
+    max_runtime_minutes: 10
+    requires_human_approval: false
+
+  - task_id: report_agent_performance
+    category: reporting
+    description: Report per-agent performance metrics and error rates
+    max_runtime_minutes: 8
+    requires_human_approval: false
+
+  - task_id: report_revenue_breakdown
+    category: reporting
+    description: Breakdown revenue by service, tier, and customer segment
+    max_runtime_minutes: 8
+    requires_human_approval: true
+
+  - task_id: report_audit_log
+    category: reporting
+    description: Export audit log for compliance review
+    max_runtime_minutes: 10
+    requires_human_approval: true
+
+  # ── Maintenance ───────────────────────────────────────────────────────
+  - task_id: maint_rotate_api_keys
+    category: maintenance
+    description: Rotate expiring API keys for integrated services
+    max_runtime_minutes: 5
+    requires_human_approval: true
+
+  - task_id: maint_cleanup_temp_files
+    category: maintenance
+    description: Remove temporary files and build artifacts older than 7 days
+    max_runtime_minutes: 5
+    requires_human_approval: false
+
+  - task_id: maint_update_dependencies
+    category: maintenance
+    description: Update pinned dependency versions within semver range
+    max_runtime_minutes: 15
+    requires_human_approval: true
+
+  - task_id: maint_health_check
+    category: maintenance
+    description: Run health checks on all agent endpoints and services
+    max_runtime_minutes: 5
+    requires_human_approval: false
+
+  - task_id: maint_restart_stale_agents
+    category: maintenance
+    description: Restart agent processes that have exceeded max runtime
+    max_runtime_minutes: 3
+    requires_human_approval: false

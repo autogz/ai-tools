@@ -1,0 +1,252 @@
+[
+  {
+    "agent_id": "opportunity_agent",
+    "agent_type": "opportunity",
+    "platform": "local",
+    "allowed_tasks": [
+      "scan_github_trends",
+      "scan_pypi_trends",
+      "scan_hn_trends",
+      "analyze_dev_pain_points",
+      "generate_opportunity_report"
+    ],
+    "forbidden_tasks": [
+      "scrape_private_data",
+      "bypass_rate_limits",
+      "create_accounts"
+    ],
+    "max_runs_per_day": 3,
+    "max_runtime_minutes": 15,
+    "max_network_requests": 50,
+    "secrets_scope": "public_read_only",
+    "wallet_access": "none",
+    "can_modify_wallet_address": false,
+    "can_create_child_agent": false,
+    "can_publish_external": false,
+    "requires_qa": false,
+    "kill_switch_enabled": true,
+    "status": "idle",
+    "created_at": "2026-06-01T11:55:10.467968",
+    "last_heartbeat": "2026-06-01T11:55:10.467980"
+  },
+  {
+    "agent_id": "content_agent",
+    "agent_type": "content",
+    "platform": "local",
+    "allowed_tasks": [
+      "draft_twitter_post",
+      "draft_reddit_post",
+      "draft_devto_article",
+      "draft_release_notes",
+      "draft_tutorial",
+      "update_readme"
+    ],
+    "forbidden_tasks": [
+      "auto_publish_to_third_party",
+      "create_fake_reviews",
+      "spam_platforms",
+      "impersonate_users",
+      "star_farming"
+    ],
+    "max_runs_per_day": 5,
+    "max_runtime_minutes": 20,
+    "max_network_requests": 30,
+    "secrets_scope": "public_read_only",
+    "wallet_access": "none",
+    "can_modify_wallet_address": false,
+    "can_create_child_agent": false,
+    "can_publish_external": false,
+    "requires_qa": true,
+    "kill_switch_enabled": true,
+    "status": "idle",
+    "created_at": "2026-06-01T11:55:10.468208",
+    "last_heartbeat": "2026-06-01T11:55:10.468212"
+  },
+  {
+    "agent_id": "risk_agent",
+    "agent_type": "risk",
+    "platform": "local",
+    "allowed_tasks": [
+      "check_order_risk",
+      "reject_illegal_order",
+      "flag_high_risk_order",
+      "request_clarification",
+      "generate_rejection_reason"
+    ],
+    "forbidden_tasks": [
+      "approve_illegal_order",
+      "bypass_risk_check",
+      "modify_rejection_rules"
+    ],
+    "max_runs_per_day": 100,
+    "max_runtime_minutes": 5,
+    "max_network_requests": 10,
+    "secrets_scope": "public_read_only",
+    "wallet_access": "none",
+    "can_modify_wallet_address": false,
+    "can_create_child_agent": false,
+    "can_publish_external": false,
+    "requires_qa": false,
+    "kill_switch_enabled": true,
+    "status": "idle",
+    "created_at": "2026-06-01T11:55:10.468454",
+    "last_heartbeat": "2026-06-01T11:55:10.468457"
+  },
+  {
+    "agent_id": "quote_agent",
+    "agent_type": "quote",
+    "platform": "local",
+    "allowed_tasks": [
+      "generate_quote",
+      "create_invoice",
+      "validate_service_tier",
+      "calculate_complexity",
+      "generate_unique_amount"
+    ],
+    "forbidden_tasks": [
+      "modify_prices_outside_rules",
+      "waive_payment",
+      "create_fake_invoice"
+    ],
+    "max_runs_per_day": 50,
+    "max_runtime_minutes": 5,
+    "max_network_requests": 5,
+    "secrets_scope": "public_read_only",
+    "wallet_access": "public_address_only",
+    "can_modify_wallet_address": false,
+    "can_create_child_agent": false,
+    "can_publish_external": false,
+    "requires_qa": false,
+    "kill_switch_enabled": true,
+    "status": "idle",
+    "created_at": "2026-06-01T11:55:10.468664",
+    "last_heartbeat": "2026-06-01T11:55:10.468667"
+  },
+  {
+    "agent_id": "payment_agent",
+    "agent_type": "payment",
+    "platform": "local",
+    "allowed_tasks": [
+      "verify_usdt_transaction",
+      "check_tx_hash",
+      "validate_payment_amount",
+      "check_duplicate_tx",
+      "generate_payment_receipt"
+    ],
+    "forbidden_tasks": [
+      "modify_wallet_address",
+      "access_private_key",
+      "fake_payment_confirmation",
+      "bypass_payment_verification",
+      "create_fake_receipt"
+    ],
+    "max_runs_per_day": 100,
+    "max_runtime_minutes": 10,
+    "max_network_requests": 30,
+    "secrets_scope": "public_read_only",
+    "wallet_access": "public_address_only",
+    "can_modify_wallet_address": false,
+    "can_create_child_agent": false,
+    "can_publish_external": false,
+    "requires_qa": false,
+    "kill_switch_enabled": true,
+    "status": "idle",
+    "created_at": "2026-06-01T11:55:10.468829",
+    "last_heartbeat": "2026-06-01T11:55:10.468832"
+  },
+  {
+    "agent_id": "delivery_agent",
+    "agent_type": "delivery",
+    "platform": "local",
+    "allowed_tasks": [
+      "create_workspace",
+      "fetch_repo",
+      "generate_deliverables",
+      "run_qa",
+      "auto_fix",
+      "package_delivery"
+    ],
+    "forbidden_tasks": [
+      "modify_wallet_address",
+      "access_private_key",
+      "mark_failed_as_success",
+      "deliver_outside_scope",
+      "bypass_qa"
+    ],
+    "max_runs_per_day": 20,
+    "max_runtime_minutes": 60,
+    "max_network_requests": 100,
+    "secrets_scope": "repo_write",
+    "wallet_access": "none",
+    "can_modify_wallet_address": false,
+    "can_create_child_agent": false,
+    "can_publish_external": false,
+    "requires_qa": true,
+    "kill_switch_enabled": true,
+    "status": "idle",
+    "created_at": "2026-06-01T11:55:10.469097",
+    "last_heartbeat": "2026-06-01T11:55:10.469099"
+  },
+  {
+    "agent_id": "revenue_agent",
+    "agent_type": "revenue",
+    "platform": "local",
+    "allowed_tasks": [
+      "calculate_daily_revenue",
+      "analyze_conversion",
+      "suggest_price_changes",
+      "identify_top_services",
+      "generate_revenue_report"
+    ],
+    "forbidden_tasks": [
+      "modify_prices_directly",
+      "promise_guaranteed_returns",
+      "make_financial_projections_without_disclaimer"
+    ],
+    "max_runs_per_day": 2,
+    "max_runtime_minutes": 15,
+    "max_network_requests": 20,
+    "secrets_scope": "public_read_only",
+    "wallet_access": "public_address_only",
+    "can_modify_wallet_address": false,
+    "can_create_child_agent": false,
+    "can_publish_external": false,
+    "requires_qa": false,
+    "kill_switch_enabled": true,
+    "status": "idle",
+    "created_at": "2026-06-01T11:55:10.469289",
+    "last_heartbeat": "2026-06-01T11:55:10.469291"
+  },
+  {
+    "agent_id": "ip_protection_agent",
+    "agent_type": "security",
+    "platform": "local",
+    "allowed_tasks": [
+      "scan_for_ip_leaks",
+      "check_dns_records",
+      "check_readme_for_ip",
+      "check_js_for_ip",
+      "generate_ip_leak_report"
+    ],
+    "forbidden_tasks": [
+      "set_up_open_proxy",
+      "bypass_firewall",
+      "scan_external_targets",
+      "expose_origin_ip",
+      "disable_security"
+    ],
+    "max_runs_per_day": 2,
+    "max_runtime_minutes": 10,
+    "max_network_requests": 20,
+    "secrets_scope": "repo_write",
+    "wallet_access": "none",
+    "can_modify_wallet_address": false,
+    "can_create_child_agent": false,
+    "can_publish_external": false,
+    "requires_qa": false,
+    "kill_switch_enabled": true,
+    "status": "idle",
+    "created_at": "2026-06-01T11:55:10.469491",
+    "last_heartbeat": "2026-06-01T11:55:10.469493"
+  }
+]
