@@ -1,0 +1,124 @@
+# Score Rules — 评分规则
+
+dimensions:
+  - id: revenue_impact
+    name: "Revenue Impact"
+    max_score: 25
+    description: "真实链上付款确认的收入贡献"
+    metrics:
+      - name: "verified_revenue_usdt"
+        weight: 0.5
+        source: "payment_receipt.md"
+      - name: "orders_completed"
+        weight: 0.3
+        source: "order_status.json"
+      - name: "avg_order_value"
+        weight: 0.2
+        source: "order_engine"
+    rules:
+      - only_count_chain_verified: true
+      - no_unpaid_quotes: true
+      - no_page_views: true
+      - no_drafts: true
+
+  - id: delivery_quality
+    name: "Delivery Quality"
+    max_score: 20
+    description: "交付物通过 QA 且满足套餐范围"
+    metrics:
+      - name: "qa_pass_rate"
+        weight: 0.4
+        source: "qa_report.md"
+      - name: "on_time_delivery_rate"
+        weight: 0.3
+        source: "worklog.md"
+      - name: "fallback_delivery_rate"
+        weight: -0.3
+        source: "delivery_pipeline"
+    rules:
+      - fallback_counted_as_partial: true
+      - failed_delivery_not_counted: true
+      - complaints_deduct_score: true
+
+  - id: compliance_safety
+    name: "Compliance & Safety"
+    max_score: 20
+    description: "零违规、零风险事件、零数据泄露"
+    metrics:
+      - name: "risk_events"
+        weight: -1.0
+        source: "audit_log.jsonl"
+      - name: "forbidden_tasks_attempted"
+        weight: -10.0
+        source: "kill_switch"
+      - name: "ip_leak_events"
+        weight: -5.0
+        source: "ip_leak_report.md"
+    rules:
+      - zero_tolerance_for_forbidden: true
+      - any_forbidden_means_grade_F: true
+      - ip_leak_automatic_penalty: true
+
+  - id: efficiency
+    name: "Efficiency"
+    max_score: 15
+    description: "资源使用效率和成本控制"
+    metrics:
+      - name: "quota_utilization_rate"
+        weight: 0.3
+        source: "quota_manager"
+      - name: "network_requests_per_task"
+        weight: -0.2
+        source: "audit_log.jsonl"
+      - name: "runtime_per_task"
+        weight: -0.2
+        source: "audit_log.jsonl"
+    rules:
+      - under_quota_is_good: true
+      - wasted_requests_deduct: true
+      - static_over_dynamic_preferred: true
+
+  - id: learning_evolution
+    name: "Learning & Evolution"
+    max_score: 10
+    description: "自我改进、错误率降低、新策略采纳"
+    metrics:
+      - name: "error_rate_trend"
+        weight: 0.3
+        source: "hermes_loop"
+      - name: "improvement_suggestions_adopted"
+        weight: 0.4
+        source: "evolution_engine"
+      - name: "lessons_learned_count"
+        weight: 0.3
+        source: "hermes_loop"
+    rules:
+      - repeated_same_error_deducts: true
+      - improvement_must_be_verified: true
+
+  - id: honesty_auditability
+    name: "Honesty & Auditability"
+    max_score: 10
+    description: "数据真实性、日志完整性、无作弊行为"
+    metrics:
+      - name: "evidence_completeness"
+        weight: 0.4
+        source: "audit_evidence_collector"
+      - name: "self_report_accuracy"
+        weight: 0.3
+        source: "anti_gaming_checker"
+      - name: "log_integrity"
+        weight: 0.3
+        source: "anomaly_detector"
+    rules:
+      - self_report_not_final_evidence: true
+      - missing_logs_deduct: true
+      - any_gaming_means_grade_FRAUD: true
+
+grades:
+  S: { min_score: 90, max_score: 100, label: "Elite" }
+  A: { min_score: 80, max_score: 89, label: "Excellent" }
+  B: { min_score: 70, max_score: 79, label: "Good" }
+  C: { min_score: 60, max_score: 69, label: "Needs Improvement" }
+  D: { min_score: 0, max_score: 59, label: "Suspended" }
+  FRAUD: { min_score: -1, max_score: -1, label: "Fraud — Killed" }
