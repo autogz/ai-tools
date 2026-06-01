@@ -1,0 +1,32 @@
+[project]
+name = "ai-dev-tools"
+version = "0.1.0"
+description = "AI Dev Tools Bundle — 5 professional AI developer tools in one CLI. PR review, SQL generation, image gen, docs gen, terminal assistant."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "AI Dev Tools Team"}
+]
+
+dependencies = [
+    "typer>=0.9",
+    "rich>=13",
+    "httpx>=0.25",
+    "pydantic>=2",
+    "pycryptodome>=3",
+]
+
+[project.urls]
+Homepage = "https://github.com/nousresearch/ai-dev-tools"
+Source = "https://github.com/nousresearch/ai-dev-tools"
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+aitools = "ai_dev_tools.cli:main_entry"
+
+[tool.setuptools.packages.find]
+include = ["ai_dev_tools*"]

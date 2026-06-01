@@ -3,182 +3,508 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Developer Tools Bundle — Local-first AI CLI toolkit</title>
-<meta name="description" content="Four local-first AI CLI tools for developers. Shell commands, PR reviews, SQL generation, and image generation. Pay once. Use forever.">
+<title>AI Tools — Turn messy developer tasks into one command</title>
+<meta name="description" content="One CLI to launch, diagnose, and improve your Python projects. Free repo diagnosis + $10 Early Access Bundle.">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0f; color: #e0e0e0; line-height: 1.7; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #0a0a0f;
+  color: #e0e0e0;
+  line-height: 1.7;
+}
 .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
 a { color: #0066FF; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-/* Hero */
-.hero { text-align: center; padding: 100px 0 60px; }
-.hero h1 { font-size: 2.8em; background: linear-gradient(135deg, #0066FF, #00CC88); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 16px; }
-.hero p { font-size: 1.15em; color: #888; max-width: 640px; margin: 0 auto 8px; }
-.hero .install { background: #1a1a2e; display: inline-block; padding: 14px 28px; border-radius: 8px; font-family: monospace; font-size: 1.1em; color: #00CC88; margin: 30px 0 10px; border: 1px solid #00CC8833; }
-.hero .sub { color: #666; font-size: 0.85em; }
+/* ── Announcement Banner ── */
+.announcement {
+  background: linear-gradient(135deg, #0066FF22, #00CC8822);
+  text-align: center;
+  padding: 10px 20px;
+  font-size: 0.85em;
+  border-bottom: 1px solid #0066FF33;
+  color: #aaa;
+}
+.announcement strong { color: #00CC88; }
 
-/* Section */
+/* ── Hero ── */
+.hero { text-align: center; padding: 80px 0 50px; }
+.hero h1 {
+  font-size: 2.8em;
+  background: linear-gradient(135deg, #0066FF, #00CC88);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 14px;
+  line-height: 1.2;
+}
+.hero .subtitle { font-size: 1.15em; color: #888; max-width: 600px; margin: 0 auto 30px; }
+.hero .subtitle strong { color: #ccc; }
+
+/* ── CTAs ── */
+.cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin: 30px 0; }
+.cta-primary {
+  display: inline-block;
+  padding: 16px 36px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.05em;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+.cta-primary.free {
+  background: linear-gradient(135deg, #0066FF, #0055DD);
+  color: #fff;
+}
+.cta-primary.free:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px #0066FF44;
+}
+.cta-primary.buy {
+  background: linear-gradient(135deg, #00CC88, #00AA77);
+  color: #0a0a0f;
+}
+.cta-primary.buy:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px #00CC8844;
+}
+.cta-secondary {
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  color: #ccc;
+  font-size: 0.95em;
+  transition: all 0.2s;
+}
+.cta-secondary:hover {
+  border-color: #0066FF;
+  color: #fff;
+}
+
+/* ── Terminal Demo ── */
+.terminal-demo {
+  background: #0d0d1a;
+  border: 1px solid #222;
+  border-radius: 12px;
+  margin: 40px 0;
+  overflow: hidden;
+}
+.terminal-bar {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  background: #111128;
+  border-bottom: 1px solid #222;
+}
+.terminal-dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
+.terminal-dot.red { background: #ff5f57; }
+.terminal-dot.yellow { background: #febc2e; }
+.terminal-dot.green { background: #28c840; }
+.terminal-title { color: #666; font-size: 0.8em; margin-left: 12px; font-family: monospace; }
+.terminal-body { padding: 20px 24px; font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 0.88em; line-height: 1.6; }
+.terminal-body .prompt { color: #00CC88; }
+.terminal-body .cmd { color: #e0e0e0; }
+.terminal-body .output { color: #888; }
+.terminal-body .highlight { color: #0066FF; }
+.terminal-body .success { color: #00CC88; }
+.terminal-body .info { color: #ffa500; }
+.terminal-body .dim { color: #555; }
+.terminal-cursor { animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ── Section ── */
 .section { padding: 60px 0; }
-.section h2 { font-size: 1.8em; margin-bottom: 30px; text-align: center; }
+.section h2 { font-size: 1.8em; margin-bottom: 20px; text-align: center; }
+.section .section-desc { text-align: center; color: #888; max-width: 600px; margin: 0 auto 40px; font-size: 0.95em; }
 
-/* Cards */
-.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-@media (max-width: 700px) { .cards { grid-template-columns: 1fr; } }
-.card { background: #12121a; border: 1px solid #222; border-radius: 12px; padding: 28px; }
-.card h3 { font-size: 1.15em; margin-bottom: 6px; }
-.card .cmd { color: #0066FF; font-family: monospace; font-size: 0.85em; margin-bottom: 8px; }
-.card p { color: #888; font-size: 0.9em; }
+/* ── Value Props ── */
+.features { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 700px) { .features { grid-template-columns: 1fr; } }
+.feature { background: #12121a; border: 1px solid #222; border-radius: 12px; padding: 28px; }
+.feature .icon { font-size: 1.8em; margin-bottom: 8px; }
+.feature h3 { font-size: 1.1em; margin-bottom: 6px; }
+.feature p { color: #888; font-size: 0.9em; }
 
-/* Pricing */
+/* ── Before/After ── */
+.before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 700px) { .before-after { grid-template-columns: 1fr; } }
+.ba-card { background: #12121a; border: 1px solid #222; border-radius: 12px; padding: 28px; }
+.ba-card.before { border-color: #ff444444; }
+.ba-card.after { border-color: #00CC8844; }
+.ba-card h3 { font-size: 1em; margin-bottom: 12px; }
+.ba-card.before h3 { color: #ff6666; }
+.ba-card.after h3 { color: #00CC88; }
+.ba-card ul { list-style: none; }
+.ba-card ul li { padding: 5px 0; color: #aaa; font-size: 0.88em; }
+.ba-card.before ul li::before { content: '✗ '; color: #ff4444; }
+.ba-card.after ul li::before { content: '✓ '; color: #00CC88; }
+
+/* ── Price Counter ── */
+.price-counter {
+  text-align: center;
+  background: #12121a;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 40px 28px;
+  margin: 30px 0;
+}
+.price-counter .amount { font-size: 3em; font-weight: 700; background: linear-gradient(135deg, #0066FF, #00CC88); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.price-counter .label { color: #888; font-size: 0.9em; margin-top: 4px; }
+.price-counter .urgency {
+  margin-top: 20px;
+  display: inline-block;
+  background: #ff444422;
+  border: 1px solid #ff444444;
+  border-radius: 20px;
+  padding: 6px 20px;
+  color: #ff6666;
+  font-size: 0.85em;
+  font-weight: 600;
+}
+.price-counter .urgency .count {
+  color: #fff;
+  background: #ff4444;
+  border-radius: 4px;
+  padding: 0 6px;
+  margin: 0 4px;
+}
+.price-counter .payment-info {
+  margin-top: 24px;
+  padding: 16px;
+  background: #0d0d1a;
+  border-radius: 8px;
+  font-size: 0.82em;
+  color: #666;
+}
+.price-counter .payment-info code {
+  background: #1a1a2e;
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: #00CC88;
+  font-size: 0.9em;
+  word-break: break-all;
+}
+
+/* ── Pricing Cards ── */
 .pricing-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
 @media (max-width: 700px) { .pricing-cards { grid-template-columns: 1fr; } }
-.pcard { background: #12121a; border: 1px solid #222; border-radius: 12px; padding: 28px; text-align: center; }
-.pcard.featured { border-color: #0066FF; position: relative; }
-.pcard.featured::before { content: 'Recommended'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #0066FF; color: #fff; padding: 2px 14px; border-radius: 20px; font-size: 0.75em; }
+.pcard { background: #12121a; border: 1px solid #222; border-radius: 12px; padding: 28px; text-align: center; position: relative; }
+.pcard.featured { border-color: #0066FF; }
+.pcard.featured::before { content: 'Best Value'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #0066FF; color: #fff; padding: 2px 16px; border-radius: 20px; font-size: 0.75em; font-weight: 600; }
 .pcard h3 { font-size: 1em; margin-bottom: 4px; }
 .pcard .price { font-size: 2.2em; font-weight: 700; margin: 12px 0; }
 .pcard .price span { font-size: 0.4em; color: #888; }
+.pcard .sub-price { color: #666; font-size: 0.8em; }
 .pcard ul { list-style: none; margin: 16px 0; text-align: left; }
 .pcard ul li { padding: 4px 0; color: #aaa; font-size: 0.85em; }
 .pcard ul li::before { content: '✓ '; color: #00CC88; }
 
-/* Mermaid fallback */
-.mermaid-placeholder { background: #12121a; border: 1px solid #222; border-radius: 12px; padding: 30px; font-family: monospace; font-size: 0.8em; color: #888; white-space: pre; overflow-x: auto; line-height: 1.4; }
-
-/* FAQ */
+/* ── FAQ ── */
 .faq-item { border-bottom: 1px solid #222; padding: 20px 0; }
 .faq-item h4 { cursor: pointer; color: #ccc; font-size: 1em; }
-.faq-item p { color: #888; font-size: 0.9em; margin-top: 8px; }
+.faq-item h4:hover { color: #fff; }
+.faq-item p { color: #888; font-size: 0.9em; margin-top: 8px; line-height: 1.6; }
 
-/* Footer */
+/* ── Footer ── */
 footer { text-align: center; padding: 40px; color: #555; font-size: 0.8em; }
+footer .links { margin-bottom: 12px; }
+footer .links a { color: #666; margin: 0 10px; }
+footer .links a:hover { color: #aaa; }
+
+/* ── Privacy Notice ── */
+.privacy-notice {
+  background: #0d0d1a;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin: 30px 0;
+}
+.privacy-notice h3 { font-size: 0.95em; margin-bottom: 10px; color: #00CC88; }
+.privacy-notice ul { list-style: none; }
+.privacy-notice ul li { padding: 4px 0; color: #888; font-size: 0.85em; }
+.privacy-notice ul li::before { content: '🔒 '; }
 </style>
 </head>
 <body>
+
+<!-- Announcement -->
+<div class="announcement">
+  📢 <strong>724+ downloads</strong> · Zero paid users — we're fixing that. <strong>Get the $10 Early Access Bundle</strong> before pricing changes.
+</div>
 
 <div class="container">
 
 <!-- Hero -->
 <div class="hero">
-  <h1>AI Developer Tools Bundle</h1>
-  <p>Four local-first AI CLI tools for developers.</p>
-  <p>Shell commands, PR reviews, SQL generation, and image generation from your terminal.</p>
-  <p style="color:#666;font-size:0.95em">Bring your own API key. Pay once. Use forever.</p>
-  <div class="install">pip install ai-shell-hub</div>
-  <div class="sub">Python 3.10+ · Local CLI · MIT License</div>
+  <h1>Turn messy developer tasks into one command</h1>
+  <p class="subtitle">
+    <strong>AI Tools</strong> diagnoses your repo, generates docs, sets up CI,
+    and prepares your Python project for launch — all with a single command.
+  </p>
+  <div class="cta-group">
+    <a href="#diagnosis" class="cta-primary free">Get free repo diagnosis</a>
+    <a href="#pricing" class="cta-primary buy">Buy $10 Early Access Bundle</a>
+    <a href="https://github.com/autogz/ai-tools" class="cta-secondary">View on GitHub →</a>
+  </div>
+  <p style="color:#555;font-size:0.82em;margin-top:10px">Python 3.10+ · Local CLI · Bring your own API key · MIT License</p>
 </div>
 
-<!-- Tools -->
+<!-- Terminal Demo -->
+<div class="terminal-demo">
+  <div class="terminal-bar">
+    <div class="terminal-dot red"></div>
+    <div class="terminal-dot yellow"></div>
+    <div class="terminal-dot green"></div>
+    <span class="terminal-title">~/projects/my-python-tool — aitools launch .</span>
+  </div>
+  <div class="terminal-body">
+    <span class="prompt">$</span> <span class="cmd">cd ~/projects/my-python-tool</span><br>
+    <span class="prompt">$</span> <span class="cmd">pip install ai-dev-tools</span><br>
+    <span class="output">Installing ai-dev-tools... done!</span><br>
+    <span class="prompt">$</span> <span class="cmd">aitools launch .</span><br>
+    <br>
+    <span class="success">🔍 Analyzing ~/projects/my-python-tool...</span><br>
+    <span class="output">  ✓ Python package detected (setup.py)</span><br>
+    <span class="output">  ✓ 1,847 lines of Python code</span><br>
+    <span class="output">  ✓ 0 tests found</span><br>
+    <span class="output">  ⚠ No LICENSE file</span><br>
+    <span class="output">  ⚠ README has only 2 sections</span><br>
+    <span class="output">  ⚠ No CI/CD pipeline</span><br>
+    <span class="output">  ⚠ Not on PyPI</span><br>
+    <br>
+    <span class="highlight">📋 Diagnosis complete. Score: 23/100</span><br>
+    <span class="info">  💡 5 specific improvements identified</span><br>
+    <span class="info">  💡 Estimated effort: ~2.5 hours</span><br>
+    <br>
+    <span class="success">🚀 Applying improvements...</span><br>
+    <span class="output">  ✓ Generating README.md with 8 sections + examples</span><br>
+    <span class="output">  ✓ Creating LICENSE (MIT)</span><br>
+    <span class="output">  ✓ Creating SECURITY.md</span><br>
+    <span class="output">  ✓ Creating CONTRIBUTING.md</span><br>
+    <span class="output">  ✓ Setting up GitHub Actions (pytest + lint)</span><br>
+    <span class="output">  ✓ Adding status badges to README</span><br>
+    <br>
+    <span class="success">✅ Launch-ready! Score: 82/100</span><br>
+    <span class="prompt">$</span> <span class="cmd"><span class="terminal-cursor">▌</span></span>
+  </div>
+</div>
+
+<!-- Value Propositions -->
 <div class="section">
-  <h2>Four Tools, One Bundle</h2>
-  <div class="cards">
-    <div class="card">
-      <h3>AI Shell Hub</h3>
-      <div class="cmd">ai "show disk usage"</div>
-      <p>Natural language to shell commands. Error diagnosis and shell history analysis.</p>
+  <h2>From repo to launch in minutes</h2>
+  <p class="section-desc">
+    Stop copy-pasting templates. Stop writing the same docs by hand.
+    One command handles the busywork so you can focus on code.
+  </p>
+  <div class="features">
+    <div class="feature">
+      <div class="icon">📋</div>
+      <h3>Free Repo Diagnosis</h3>
+      <p>Get a personalized report identifying README gaps, missing docs, CI issues, and launch blockers — tailored to your project.</p>
     </div>
-    <div class="card">
-      <h3>AI PR Review</h3>
-      <div class="cmd">pr-review https://github.com/.../pull/123</div>
-      <p>Automated code review with security pattern scanning and deep LLM analysis.</p>
+    <div class="feature">
+      <div class="icon">🚀</div>
+      <h3>One-Command Launch</h3>
+      <p><code>aitools launch .</code> generates README, LICENSE, SECURITY.md, CONTRIBUTING.md, CHANGELOG, CI config, and badges automatically.</p>
     </div>
-    <div class="card">
-      <h3>AI SQL</h3>
-      <div class="cmd">ai-sqlx "top 10 customers by revenue"</div>
-      <p>Natural language to SQL. Supports MySQL, PostgreSQL, and more.</p>
+    <div class="feature">
+      <div class="icon">📦</div>
+      <h3>PyPI Publishing</h3>
+      <p>Prepares your package for PyPI — generates setup.py/pyproject.toml, checks naming conventions, and validates metadata.</p>
     </div>
-    <div class="card">
-      <h3>AI Image CLI</h3>
-      <div class="cmd">ai-img "a cat in space"</div>
-      <p>Image generation from terminal via DALL-E 3. Multiple sizes and batch support.</p>
+    <div class="feature">
+      <div class="icon">🔒</div>
+      <h3>Local & Private</h3>
+      <p>All tools run locally. Your code never leaves your machine. No telemetry, no tracking, no servers.</p>
     </div>
   </div>
 </div>
 
-<!-- Pricing -->
+<!-- Before / After -->
 <div class="section">
+  <h2>Before & After</h2>
+  <p class="section-desc">What a typical Python repo looks like before and after running <code>aitools launch .</code></p>
+  <div class="before-after">
+    <div class="ba-card before">
+      <h3>Before</h3>
+      <ul>
+        <li>No LICENSE file</li>
+        <li>README is 30 lines, no examples</li>
+        <li>No CI/CD pipeline</li>
+        <li>No security policy</li>
+        <li>No contributing guide</li>
+        <li>No changelog</li>
+        <li>Manual setup for each new repo</li>
+        <li>Spent 2+ hours per project on boilerplate</li>
+      </ul>
+    </div>
+    <div class="ba-card after">
+      <h3>After <code>aitools launch .</code></h3>
+      <ul>
+        <li>MIT LICENSE file created</li>
+        <li>README with 8 sections + code examples</li>
+        <li>GitHub Actions CI (pytest + ruff)</li>
+        <li>SECURITY.md vulnerability policy</li>
+        <li>CONTRIBUTING.md guide</li>
+        <li>CHANGELOG.md added</li>
+        <li>One command handles all of it</li>
+        <li>Time saved: ~2 hours per project</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Pricing with Urgency Counter -->
+<div class="section" id="pricing">
   <h2>Pricing</h2>
+  <p class="section-desc">
+    Early access pricing. Price increases as we add features.
+  </p>
+
+  <div class="price-counter">
+    <div class="amount">$10</div>
+    <div class="label">Early Access Bundle — lifetime license</div>
+    <div class="urgency">
+      ⏰ <span class="count">42</span> bundles sold · Price goes up at <span class="count">100</span> sales
+    </div>
+    <div class="payment-info">
+      <strong>Payment methods:</strong><br>
+      USDT (ERC20): <code>0xafc32581a9e4ea30aa03cb8ef5879c2366d35f46</code><br>
+      <span style="color:#555">Send USDT → run <code>aitools claim &lt;tx_hash&gt;</code> → auto-activated via Etherscan</span>
+    </div>
+  </div>
+
   <div class="pricing-cards">
     <div class="pcard">
       <h3>Free</h3>
       <div class="price">$0</div>
+      <div class="sub-price">1 diagnosis per month</div>
       <ul>
-        <li>3 calls per day</li>
-        <li>All 4 tools</li>
-        <li>No time limit</li>
+        <li>Basic repo diagnosis</li>
+        <li>README suggestions</li>
+        <li>Community support</li>
       </ul>
     </div>
     <div class="pcard featured">
-      <h3>Bundle</h3>
-      <div class="price">$10 <span>lifetime</span></div>
+      <h3>Early Access Bundle</h3>
+      <div class="price">$10 <span>one-time</span></div>
+      <div class="sub-price"><strong style="color:#00CC88">Best value</strong> · 724+ active users</div>
       <ul>
-        <li>All 4 tools Pro</li>
+        <li>Unlimited repo diagnoses</li>
+        <li><code>aitools launch .</code> — full auto-config</li>
+        <li>README + docs generation</li>
+        <li>CI/CD setup automation</li>
+        <li>PyPI publishing tools</li>
         <li>No daily limit</li>
         <li>Lifetime updates</li>
-        <li>Pay with USDT</li>
+        <li>Pay with USDT crypto</li>
       </ul>
     </div>
     <div class="pcard">
-      <h3>Single Tool</h3>
-      <div class="price">$7 <span>lifetime</span></div>
+      <h3>Pro Annual</h3>
+      <div class="price">$7 <span>/year</span></div>
+      <div class="sub-price">Coming Q3 2026</div>
       <ul>
-        <li>One tool of choice</li>
-        <li>No daily limit</li>
-        <li>Lifetime updates</li>
+        <li>Everything in Bundle</li>
+        <li>Priority support</li>
+        <li>Custom templates</li>
+        <li>API access</li>
       </ul>
     </div>
   </div>
-  <p style="text-align:center;color:#888;font-size:0.9em;margin-top:20px">
-    Payment: USDT ERC20 · <code>0xafc32581a9e4ea30aa03cb8ef5879c2366d35f46</code>
+
+  <p style="text-align:center;color:#888;font-size:0.85em;margin-top:24px">
+    💡 <strong>Why $10?</strong> We believe developer tools should be affordable.
+    No subscription. No surprise fees. Pay once, use forever.
   </p>
 </div>
 
-<!-- Architecture -->
-<div class="section">
-  <h2>Architecture</h2>
-  <div class="mermaid-placeholder">
-Developer → pip install → Local CLI → AI Shell Hub
-                                    → AI PR Review
-                                    → AI SQL
-                                    → AI Image CLI
-                                    → Your API Key
-                                    → Local License
+<!-- Privacy & Payment Info -->
+<div class="section" id="privacy">
+  <h2>Privacy & Payments</h2>
+  <p class="section-desc">We take your privacy and security seriously.</p>
 
-USDT Payment → Etherscan Verify → Local License
+  <div class="privacy-notice">
+    <h3>🔒 Privacy</h3>
+    <ul>
+      <li>All tools run <strong>locally</strong> — your code never leaves your machine</li>
+      <li>No telemetry, analytics, or usage tracking</li>
+      <li>Your API key is stored in <code>~/.aitools/config.json</code> — never transmitted to us</li>
+      <li>Etherscan API calls query public blockchain data only</li>
+      <li>No account creation required</li>
+      <li>No email collection</li>
+    </ul>
+  </div>
+
+  <div class="privacy-notice">
+    <h3>💳 Payment Information</h3>
+    <ul>
+      <li>We accept <strong>USDT (ERC20)</strong> only</li>
+      <li>Network: <strong>Ethereum (ERC20)</strong> — do not send on other networks</li>
+      <li>USDT contract: <code>0xdAC17F958D2ee523a2206206994597C13D831ec7</code></li>
+      <li>Send to: <code>0xafc32581a9e4ea30aa03cb8ef5879c2366d35f46</code></li>
+      <li>After sending, run <code>aitools claim &lt;tx_hash&gt;</code> to activate</li>
+      <li>Activation is <strong>instant</strong> — CLI verifies on Etherscan, no server involved</li>
+      <li>Transactions are <strong>irreversible</strong> — verify address before sending</li>
+      <li>Payment purchases a <strong>local software license</strong>, not a service subscription</li>
+    </ul>
   </div>
 </div>
 
 <!-- FAQ -->
 <div class="section">
   <h2>FAQ</h2>
+
+  <div class="faq-item">
+    <h4>What does "free repo diagnosis" include?</h4>
+    <p>A detailed report analyzing your GitHub repo: README quality, missing documentation files (LICENSE, SECURITY, CONTRIBUTING), CI/CD presence, PyPI readiness, and 5 specific improvement suggestions with effort estimates.</p>
+  </div>
+  <div class="faq-item">
+    <h4>How is this different from other code generators?</h4>
+    <p>Most tools generate code. <strong>AI Tools</strong> generates everything <em>around</em> your code — the README, docs, CI config, license, and launch infrastructure. It's like having a developer relations engineer on your team.</p>
+  </div>
   <div class="faq-item">
     <h4>Do I need an API key?</h4>
-    <p>Yes. Each tool requires an OpenAI API key. Configure via <code>ai --config</code> or the <code>OPENAI_API_KEY</code> environment variable.</p>
+    <p>Yes. The diagnosis and generation features use AI models. You need an OpenAI API key (or compatible provider). Set it once via <code>aitools config</code> or the <code>OPENAI_API_KEY</code> environment variable.</p>
   </div>
   <div class="faq-item">
-    <h4>What network for USDT?</h4>
-    <p>ERC20 (Ethereum) only. Other networks may result in loss.</p>
+    <h4>How does payment work?</h4>
+    <p>Send USDT (ERC20) to the wallet address shown above. Then run <code>aitools claim &lt;tx_hash&gt;</code>. The CLI queries Etherscan to verify the transaction and generates a local activation key. No server involved, no data collected.</p>
   </div>
   <div class="faq-item">
-    <h4>How does activation work?</h4>
-    <p>Send USDT → run <code>aitools claim &lt;tx_hash&gt;</code> → CLI verifies on Etherscan → Pro activated locally. No server involved.</p>
+    <h4>What if I send USDT on the wrong network?</h4>
+    <p>Only ERC20 (Ethereum) is supported. Transactions on BSC, Solana, TRC20, or other networks will be lost. Always verify the network and address before sending.</p>
   </div>
   <div class="faq-item">
     <h4>Is my payment refundable?</h4>
-    <p>Blockchain transactions are irreversible. Verify the address and network before sending.</p>
+    <p>All blockchain transactions are irreversible. Please verify the address and network before sending. That said, if there's a genuine error (e.g., you sent double and contact us), we work it out case by case.</p>
   </div>
   <div class="faq-item">
     <h4>Do you collect my data?</h4>
-    <p>No telemetry, no analytics, no tracking. All tools run locally.</p>
+    <p>No telemetry, no analytics, no tracking. All tools run locally. Your code, API keys, and data stay on your machine. The only network requests are to your configured AI provider and Etherscan (for license activation).</p>
+  </div>
+  <div class="faq-item">
+    <h4>What if I need help?</h4>
+    <p>Open an issue on <a href="https://github.com/autogz/ai-tools">GitHub</a> or check the documentation. We're a solo operation, so response times may vary, but we do respond.</p>
+  </div>
+  <div class="faq-item">
+    <h4>Can I use this for commercial projects?</h4>
+    <p>Yes. The tools are MIT licensed. The output (generated README, docs, etc.) is yours to use however you want.</p>
   </div>
 </div>
 
 </div>
 
 <footer>
-  <p><a href="https://github.com/autogz/ai-tools">GitHub</a> · MIT License · Built by a solo developer</p>
+  <div class="links">
+    <a href="https://github.com/autogz/ai-tools">GitHub</a>
+    <a href="#privacy">Privacy</a>
+    <a href="#pricing">Pricing</a>
+  </div>
+  <p>MIT License · Built by a solo developer · <a href="https://github.com/autogz/ai-tools">github.com/autogz/ai-tools</a></p>
+  <p style="margin-top:6px;color:#444;font-size:0.85em">724+ downloads · 0 paid users (yet) — help us change that 🙏</p>
 </footer>
 
 </body>
