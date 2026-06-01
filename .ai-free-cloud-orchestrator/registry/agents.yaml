@@ -1,0 +1,241 @@
+# AI Free Cloud Agent Network — Agent Registry
+# Defines every agent deployed across the free-tier platforms.
+# The Master Controller audits all agent activity against these specs.
+# Kill switch enabled on all agents. Sub-agents MAY NOT spawn sub-agents.
+
+agents:
+  - agent_id: "github_readme_worker"
+    platform: "GitHub Actions"
+    purpose: >
+      Automatically update README, CHANGELOG, CONTRIBUTING, and other
+      repo-facing markdown documentation. Processes scheduled content
+      sources and commits clean, linted markdown back to the repository.
+    allowed_tasks:
+      - "readme_sync"
+      - "changelog_generate"
+      - "contributing_update"
+      - "license_header_update"
+      - "badge_refresh"
+    forbidden_tasks:
+      - "code_deploy"
+      - "secrets_injection"
+      - "force_push_rewrite_history"
+      - "token_exfiltration"
+      - "review_override"
+    max_runtime_minutes: 30
+    max_runs_per_day: 12
+    max_network_requests_per_run: 50
+    secrets_scope: "repo_write"
+    requires_human_approval: false
+    output_review_required: true
+    kill_switch_enabled: true
+    created_at: "2025-01-15T00:00:00Z"
+    last_heartbeat: "2025-01-15T00:00:00Z"
+    status: "idle"
+
+  - agent_id: "cloudflare_webhook_worker"
+    platform: "Cloudflare Workers"
+    purpose: >
+      Edge-deployed webhook receiver that validates, filters, and
+      dispatches incoming webhook payloads to downstream services
+      (KV store, internal queues, or approved external endpoints).
+    allowed_tasks:
+      - "webhook_receive"
+      - "payload_validate"
+      - "kv_store_write"
+      - "notification_dispatch"
+      - "rate_limit_enforcement"
+    forbidden_tasks:
+      - "arbitrary_http_proxy"
+      - "data_exfiltration_to_unknown"
+      - "crypto_operations"
+      - "file_hosting"
+      - "dns_manipulation"
+    max_runtime_minutes: 0.5  # 30 seconds — Worker hard limit on free
+    max_runs_per_day: 100000
+    max_network_requests_per_run: 10
+    secrets_scope: "cloudflare_worker"
+    requires_human_approval: false
+    output_review_required: false
+    kill_switch_enabled: true
+    created_at: "2025-01-15T00:00:00Z"
+    last_heartbeat: "2025-01-15T00:00:00Z"
+    status: "idle"
+
+  - agent_id: "pages_build_worker"
+    platform: "Cloudflare Pages"
+    purpose: >
+      Manages static site builds and deployments on Cloudflare Pages.
+      Pulls from approved repos, runs build commands, and deploys to
+      the Pages preview or production environment.
+    allowed_tasks:
+      - "site_build"
+      - "preview_deploy"
+      - "production_deploy"
+      - "build_log_audit"
+      - "redirect_config_sync"
+    forbidden_tasks:
+      - "env_injection_unapproved"
+      - "deploy_unapproved_content"
+      - "destroy_production"
+      - "domain_transfer"
+      - "custom_certificate_upload"
+    max_runtime_minutes: 30
+    max_runs_per_day: 10
+    max_network_requests_per_run: 20
+    secrets_scope: "pages_deploy"
+    requires_human_approval: true
+    output_review_required: true
+    kill_switch_enabled: true
+    created_at: "2025-01-15T00:00:00Z"
+    last_heartbeat: "2025-01-15T00:00:00Z"
+    status: "idle"
+
+  - agent_id: "local_maintenance_worker"
+    platform: "PythonAnywhere"
+    purpose: >
+      Runs maintenance scripts on the orchestrator's local infrastructure
+      via scheduled cron jobs on PythonAnywhere. Cleans old logs, prunes
+      temporary files, aggregates heartbeat data, and sends summary to KV.
+    allowed_tasks:
+      - "log_rotate"
+      - "temp_file_cleanup"
+      - "heartbeat_aggregate"
+      - "status_report_generate"
+      - "registry_sync_check"
+    forbidden_tasks:
+      - "remote_command_execution"
+      - "filesystem_outside_workspace"
+      - "user_account_manipulation"
+      - "network_port_scan"
+      - "privilege_escalation"
+    max_runtime_minutes: 10
+    max_runs_per_day: 24
+    max_network_requests_per_run: 15
+    secrets_scope: "orchestrator_internal"
+    requires_human_approval: false
+    output_review_required: false
+    kill_switch_enabled: true
+    created_at: "2025-01-15T00:00:00Z"
+    last_heartbeat: "2025-01-15T00:00:00Z"
+    status: "idle"
+
+  - agent_id: "trend_scan_agent"
+    platform: "Google Colab"
+    purpose: >
+      Experimental research agent that uses Colab notebooks to scan
+      trending repositories, articles, and datasets. Produces structured
+      reports for content planning. Runs are ephemeral and stateless.
+    allowed_tasks:
+      - "trend_sources_scan"
+      - "repo_metadata_collect"
+      - "content_gap_analysis"
+      - "dataset_discovery"
+      - "report_generate_markdown"
+    forbidden_tasks:
+      - "write_to_production_repos"
+      - "deploy_code"
+      - "exfiltrate_credentials"
+      - "schedule_persistent_jobs"
+      - "interact_with_agent_network"
+    max_runtime_minutes: 60
+    max_runs_per_day: 4
+    max_network_requests_per_run: 200
+    secrets_scope: "read_only_github"
+    requires_human_approval: true
+    output_review_required: true
+    kill_switch_enabled: true
+    created_at: "2025-01-20T00:00:00Z"
+    last_heartbeat: "2025-01-20T00:00:00Z"
+    status: "idle"
+
+  - agent_id: "content_draft_agent"
+    platform: "Vercel"
+    purpose: >
+      Generates and stores markdown drafts for blog posts, release
+      notes, and documentation updates. Runs as a serverless function,
+      calls an approved LLM API, and stores outputs in Vercel KV or
+      blob storage for human review.
+    allowed_tasks:
+      - "draft_blog_post"
+      - "draft_release_notes"
+      - "draft_documentation_update"
+      - "llm_inference_approved"
+      - "kv_write_draft"
+    forbidden_tasks:
+      - "auto_publish_without_approval"
+      - "llm_jailbreak_or_prompt_injection"
+      - "exfiltrate_drafts_to_unauthorized"
+      - "modify_production_content"
+      - "spawn_child_agents"
+    max_runtime_minutes: 10
+    max_runs_per_day: 20
+    max_network_requests_per_run: 30
+    secrets_scope: "llm_api_key"
+    requires_human_approval: false
+    output_review_required: true
+    kill_switch_enabled: true
+    created_at: "2025-01-25T00:00:00Z"
+    last_heartbeat: "2025-01-25T00:00:00Z"
+    status: "idle"
+
+  - agent_id: "payment_check_agent"
+    platform: "Netlify"
+    purpose: >
+      Serverless function that periodically checks free-tier budget
+      consumption and remaining quota across all registered platforms.
+      Sends alerts when thresholds are crossed. Runs with read-only
+      access to billing/usage APIs.
+    allowed_tasks:
+      - "quota_poll_all_platforms"
+      - "usage_trend_analyze"
+      - "alert_dispatch"
+      - "budget_report_generate"
+      - "dashboard_data_refresh"
+    forbidden_tasks:
+      - "upgrade_tier_plan"
+      - "modify_billing_settings"
+      - "access_payment_methods"
+      - "exfiltrate_financial_data"
+      - "impersonate_user"
+    max_runtime_minutes: 5
+    max_runs_per_day: 48
+    max_network_requests_per_run: 25
+    secrets_scope: "read_only_billing"
+    requires_human_approval: false
+    output_review_required: false
+    kill_switch_enabled: true
+    created_at: "2025-01-15T00:00:00Z"
+    last_heartbeat: "2025-01-15T00:00:00Z"
+    status: "idle"
+
+  - agent_id: "qa_worker"
+    platform: "GitHub Actions"
+    purpose: >
+      Runs quality assurance checks on code, documentation, and
+      configuration pull requests. Executes linting, spell-check,
+      link-checking, and structural validation. Posts results as
+      PR comments or check-run summaries.
+    allowed_tasks:
+      - "lint_run"
+      - "spellcheck_run"
+      - "link_check"
+      - "yaml_validate"
+      - "pr_comment_results"
+      - "check_run_create"
+    forbidden_tasks:
+      - "bypass_review_requirements"
+      - "auto_merge_any_pr"
+      - "modify_ci_config"
+      - "inject_test_false_positives"
+      - "escalate_permissions"
+    max_runtime_minutes: 15
+    max_runs_per_day: 100
+    max_network_requests_per_run: 30
+    secrets_scope: "repo_read"
+    requires_human_approval: false
+    output_review_required: false
+    kill_switch_enabled: true
+    created_at: "2025-01-15T00:00:00Z"
+    last_heartbeat: "2025-01-15T00:00:00Z"
+    status: "idle"

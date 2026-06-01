@@ -1,0 +1,3 @@
+- [2026-06-01T11:48:30.666743] workspace_created: /root/.ai-auto-order/orders/ORD-20260601-TEST/deliverables
+- [2026-06-01T11:48:30.667273] qa_completed: {"order_id": "ORD-20260601-TEST", "timestamp": "2026-06-01T11:48:30.666922", "checks": [{"check": "file_exists:README.md", "passed": true}, {"check": "file_exists:SECURITY.md", "passed": true}, {"check": "file_exists:DISCLAIMER.md", "passed": true}, {"check": "readme_size", "passed": true, "size": 214}], "passed": true}
+- [2026-06-01T11:48:30.667447] delivery_packaged: 3 files

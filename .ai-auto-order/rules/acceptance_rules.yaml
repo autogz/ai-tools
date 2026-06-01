@@ -1,0 +1,73 @@
+# Acceptance Rules — 自动接单条件
+# 所有条件必须同时满足才自动接单
+
+auto_accept:
+  enabled: true
+
+  conditions:
+    # 需求属于标准化服务菜单
+    service_in_menu: true
+
+    # 风险等级必须为 Low
+    risk_level_max: "low"
+
+    # 需求描述清晰度阈值 (0.0 - 1.0)
+    min_clarity_score: 0.75
+
+    # 可交付性评分阈值 (0.0 - 1.0)
+    min_deliverability_score: 0.75
+
+    # 客户已选择服务类型
+    service_type_selected: true
+
+    # 客户已确认交付物范围
+    scope_confirmed: true
+
+    # 已收到足额 USDT
+    payment_received_full: true
+
+    # 付款链正确 (USDT ERC20)
+    payment_chain_correct: true
+
+    # 付款 Token 合约正确
+    payment_token_correct: true
+
+    # 没有敏感数据风险
+    no_sensitive_data_risk: true
+
+    # 没有违法或违规内容
+    no_illegal_content: true
+
+    # 预计交付成本低于订单价格 30%
+    max_delivery_cost_ratio: 0.30
+
+    # 订单复杂度不超过套餐上限
+    complexity_within_tier: true
+
+  # 需求清晰度评估关键字
+  clarity_boosters:
+    - "我需要"
+    - "请帮我"
+    - "github.com/"
+    - "https://"
+    - "README"
+    - "LICENSE"
+    - "Python"
+    - "CLI"
+    - "pip"
+    - "package"
+    - "API"
+    - "USDT"
+    - "ERC20"
+    - "wallet"
+    - "blockchain"
+    - "automation"
+    - "script"
+    - "code"
+    - "project"
+    - "repo"
+    - "repository"
+    - "install"
+    - "config"
+    - "test"
+    - "deploy"

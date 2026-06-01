@@ -1,0 +1,107 @@
+# AI Free Cloud Agent Network — QuotaManager Configuration
+# Governs rate limits, concurrency, and budget thresholds across all platforms.
+# The Master Controller enforces these limits globally and per-platform.
+# Violations trigger immediate kill switch or human escalation.
+
+global_settings:
+  daily_run_limit: 5000
+  max_concurrency: 25
+  auto_stop_threshold: 0.95
+  description: >
+    Global limits across ALL agents combined. Daily_run_limit is total
+    agent invocations per calendar day. max_concurrency is max active
+    agents at any instant. auto_stop_threshold is the fraction of daily
+    limit at which non-critical agents are automatically paused.
+
+platform_limits:
+  - platform: "GitHub Actions"
+    daily_run_limit: 200
+    max_runtime_minutes: 360  # 6 hours — GitHub Actions hard limit per job
+    max_concurrency: 5
+    max_network_requests: 500
+    monthly_budget_usd: 0
+    notes: "Free tier: 2000 min/month public repos. 20 concurrent Linux, 5 macOS on free."
+
+  - platform: "Cloudflare Workers"
+    daily_run_limit: 99900  # leave 100 requests buffer under the 100k hard cap
+    max_runtime_minutes: 0.5  # 30 seconds wall-clock limit on free tier
+    max_concurrency: 10
+    max_network_requests: 20
+    monthly_budget_usd: 0
+    notes: "Free tier hard cap: 100k req/day. 10ms CPU per request. ~1 GB bandwidth/day."
+
+  - platform: "Cloudflare Pages"
+    daily_run_limit: 16  # ~500 builds/month → safe daily budget
+    max_runtime_minutes: 30
+    max_concurrency: 1  # free tier limits to 1 concurrent build
+    max_network_requests: 50
+    monthly_budget_usd: 0
+    notes: "Free tier: 500 builds/month. 1 GB storage. Functions: 100k req/day separate."
+
+  - platform: "Vercel"
+    daily_run_limit: 200  # 6000 build min/month, ~200 min/day
+    max_runtime_minutes: 10
+    max_concurrency: 1  # Hobby tier: 1 concurrent build
+    max_network_requests: 100
+    monthly_budget_usd: 0
+    notes: "Hobby tier: 6000 build min/month, 100 GB bandwidth. Functions 10s timeout."
+
+  - platform: "Netlify"
+    daily_run_limit: 10  # 300 build min/month → ~10 min/day safe
+    max_runtime_minutes: 15
+    max_concurrency: 1  # free tier: 1 concurrent build
+    max_network_requests: 100
+    monthly_budget_usd: 0
+    notes: "Starter: 300 build min/month, 100 GB bandwidth. Functions: 125k req/month."
+
+  - platform: "PythonAnywhere"
+    daily_run_limit: 24
+    max_runtime_minutes: 30  # within the 12h wall-time per day
+    max_concurrency: 2  # free: 2 console sessions
+    max_network_requests: 50
+    monthly_budget_usd: 0
+    notes: "Free: 512 MB storage, 1 web app, 12h wall-time daily. MySQL 100 MB."
+
+  - platform: "Google Colab"
+    daily_run_limit: 4
+    max_runtime_minutes: 60
+    max_concurrency: 1  # single runtime session
+    max_network_requests: 300
+    monthly_budget_usd: 0
+    notes: "Free: ~12h GPU runtime/day. Session drops after 90 min idle. Not for production."
+
+warning_thresholds:
+  - level: 0.8
+    action: "warn"
+    description: >
+      At 80% of any platform daily limit or global daily limit, the
+      Master Controller fires a WARNING notification to the admin
+      channel. Agents continue normally. A summary report is generated.
+
+  - level: 0.95
+    action: "stop_noncritical"
+    description: >
+      At 95% of any limit, all non-critical agents (trend_scan_agent,
+      content_draft_agent, and any agent with requires_human_approval=true)
+      are immediately paused. Only system-critical agents (webhook worker,
+      payment checker, local maintenance) continue running. A CRITICAL
+      alert is dispatched. Human admin is notified.
+
+  - level: 1.0
+    action: "kill_all"
+    description: >
+      At 100% of any platform or global limit, ALL agents are immediately
+      killed. The Master Controller flips all agent statuses to 'killed'.
+      Kill switch disables all run triggers. No new runs are accepted until
+      a human admin manually resets the quota counters or explicitly
+      overrides via the admin interface. Root cause analysis report is
+      auto-generated and stored in the audit log.
+
+quota_reset_policy:
+  reset_interval: "daily"
+  reset_time: "00:00 UTC"
+  description: >
+    All per-day counters reset at midnight UTC. Monthly budgets reset
+    on the 1st of each month at 00:00 UTC. If a kill_all event occurred
+    within the current cycle, counters do NOT auto-reset; a human must
+    clear the kill state first.

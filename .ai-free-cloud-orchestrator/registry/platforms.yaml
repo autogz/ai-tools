@@ -1,0 +1,222 @@
+# AI Free Cloud Agent Network — Platform Registry
+# Defines all supported free-tier platforms and their usage constraints.
+# Every agent deployment must reference a platform defined here.
+
+platforms:
+  - name: "GitHub Actions"
+    tier: "free"
+    daily_free_quota: 24
+    unit: "hours"
+    monthly_free_budget_usd: 0
+    prohibited_uses:
+      - "Cryptocurrency mining"
+      - "Crypto/blockchain operations of any kind"
+      - "Proxies or VPN endpoints"
+      - "Malware, exploits, or vulnerability scanning"
+      - "Spam, phishing, or social engineering"
+      - "Streaming media servers"
+      - "Synthetic load generation or stress testing"
+      - "Automated marketplace scraping"
+      - "Running torrents or file-sharing daemons"
+      - "Bypassing GitHub rate limits or abuse detection"
+    allowed_uses:
+      - "CI/CD pipelines and automated testing"
+      - "Documentation generation and linting"
+      - "Scheduled maintenance tasks (repo cleanup, stale-branch removal)"
+      - "Content rebuilds (e.g. static site generators)"
+      - "Automated code quality checks and vulnerability auditing"
+      - "Webhook dispatch and lightweight orchestration"
+      - "Monitoring checks (uptime, status page refreshes)"
+      - "Readme/CHANGELOG auto-update workflows"
+    notes: >
+      GitHub Actions free tier includes 2000 min/month for public repos, unlimited for public repos.
+      Jobs are limited to 6 hours per workflow run. Concurrent jobs limited to 20 (Linux), 5 (macOS).
+      2024-06 policy change: jobs limited to 8 GB RAM, 2 vCPUs default. No persistent storage across runs.
+      Must use official runners — no self-hosted runners on free tier under this registry.
+      All workflows must have a explicit workflow_dispatch or schedule trigger; no unbounded webhook loops.
+
+  - name: "Cloudflare Workers"
+    tier: "free"
+    daily_free_quota: 100000
+    unit: "requests"
+    monthly_free_budget_usd: 0
+    prohibited_uses:
+      - "Cryptocurrency mining"
+      - "DDoS amplification or reflective attacks"
+      - "Spam, phishing, or social engineering"
+      - "Proxy or VPN endpoint services"
+      - "Tor exit node or relay"
+      - "Scraping at rates exceeding 1 req/sec per Worker"
+      - "Serving copyrighted content without license"
+      - "Bypassing Cloudflare's own rate limits or WAF"
+      - "Running arbitrary binaries or subprocesses (impossible on Workers)"
+      - "Any use that violates Cloudflare's AUP"
+    allowed_uses:
+      - "Serverless API endpoints and webhook handlers"
+      - "Edge-side content transformation and routing"
+      - "KV-backed data lookups and configuration management"
+      - "Cron-triggered maintenance tasks (via Workers Cron Triggers)"
+      - "HTTP request filtering and sanitization"
+      - "Website analytics aggregation (privacy-preserving)"
+      - "Form submission handling and validation"
+      - "Lightweight proxy for allowed API integrations"
+    notes: >
+      Free tier: 100k requests/day, 10ms CPU per request, 1 GB bandwidth/day.
+      No Durable Objects on free tier. Subdomain limits: 10 subdomains per account.
+      Workers must complete in <30 seconds wall time (free tier).
+      Max 100 scripts per account on free plan. KV free tier: 1 GB storage, 1000 reads/day.
+      2024-06 limits confirmed. No WebSocket support on free tier.
+
+  - name: "Cloudflare Pages"
+    tier: "free"
+    daily_free_quota: 100
+    unit: "builds"
+    monthly_free_budget_usd: 0
+    prohibited_uses:
+      - "Deploying phishing or scam sites"
+      - "Hosting copyrighted content without authorization"
+      - "Proxy or relay services"
+      - "Serving malware or exploit code"
+      - "Automated build spam (unlimited redeploys for abuse)"
+      - "Crypto mining dashboards or any blockchain-adjacent tooling"
+    allowed_uses:
+      - "Static documentation sites and knowledge bases"
+      - "Marketing landing pages for non-commercial projects"
+      - "Personal portfolio and blog hosting"
+      - "API documentation (OpenAPI/Swagger UI, Redoc)"
+      - "Progressive Web Apps (PWAs)"
+      - "Redirect and URL-shortener frontends (ethical use)"
+      - "Client-side rendered apps (React/Vue/Svelte SPAs)"
+      - "Frameworks: Hugo, Jekyll, Astro, Next.js (SSG), Gatsby"
+    notes: >
+      Free tier: 500 builds/month, 1 GB storage, 100 GB bandwidth.
+      Builds limited to 30 minutes; concurrent builds: 1 (free).
+      Functions (serverless) limited to 100k requests/day on free tier.
+      Custom domain support limited to 1 domain (free). 25 GB video content max.
+      Pages must not exceed 25 MB per file. No large binary hosting.
+
+  - name: "Vercel"
+    tier: "free (Hobby)"
+    daily_free_quota: 100
+    unit: "hours build-time"
+    monthly_free_budget_usd: 0
+    prohibited_uses:
+      - "Crypto mining or blockchain validator nodes"
+      - "Proxies, VPNs, or tunnel services"
+      - "Spam, phishing, or deception platforms"
+      - "Commercial SaaS products exceeding fair use"
+      - "Scraping or data harvesting at scale"
+      - "Load testing Vercel's infrastructure"
+      - "Serving illegal or regulated content"
+    allowed_uses:
+      - "Personal and open-source project hosting"
+      - "Jamstack and SSG site deployments (Next.js, Nuxt, Hugo, etc.)"
+      - "Serverless API endpoints with <=10s timeout"
+      - "Preview deployments for development branches"
+      - "Webhook-receiving endpoints"
+      - "Form handling and lightweight data processing"
+      - "Portfolio, blog, and documentation sites"
+      - "Community project demo instances"
+    notes: >
+      Hobby tier: 100 GB bandwidth, 6000 build minutes/month.
+      Serverless functions: 10s execution, 512 MB memory, 1 concurrent.
+      Concurrent builds: 1. Team seats: 1 (free).
+      Unlimited static sites. No team features (analytics, preview comments).
+      2024-06: Edge Functions on Hobby limited to 50k invocations/month.
+      Deploy hooks available for CI integration.
+
+  - name: "Netlify"
+    tier: "free (Starter)"
+    daily_free_quota: 300
+    unit: "build minutes"
+    monthly_free_budget_usd: 0
+    prohibited_uses:
+      - "Crypto mining or staking infrastructure"
+      - "Proxies, VPNs, or anonymization services"
+      - "Spam, phishing, or deceptive content"
+      - "Commercial resale without a paid plan"
+      - "High-traffic media streaming"
+      - "Automated bot networks or chat farms"
+      - "Content that violates Netlify's Acceptable Use Policy"
+    allowed_uses:
+      - "Static site hosting (Hugo, Jekyll, Eleventy, Gatsby, etc.)"
+      - "Serverless functions (<=10s, 1024 MB memory)"
+      - "Form handling with Netlify Forms"
+      - "Identity and authentication integrations"
+      - "Split testing and branch-based deploys"
+      - "Edge Functions for geolocated redirects/location-aware content"
+      - "Documentation sites and knowledge bases"
+      - "Personal projects and open-source showcases"
+    notes: >
+      Starter plan: 100 GB bandwidth, 300 build minutes/month.
+      Serverless functions: 125k requests/month. Concurrent builds: 1.
+      Unlimited forms submissions: 100/month (Starter).
+      Identity service: 1000 active users (Starter). Max 1 team member.
+      2024-06: Deployment limit: 500 per project. Rollback supported.
+
+  - name: "PythonAnywhere"
+    tier: "free (Beginner)"
+    daily_free_quota: 12
+    unit: "hours CPU"
+    monthly_free_budget_usd: 0
+    prohibited_uses:
+      - "Cryptocurrency mining"
+      - "Crypto trading bots or staking scripts"
+      - "Spam or mass-messaging systems"
+      - "Proxies, VPNs, or SSH tunneling services"
+      - "Scraping at industrial scale"
+      - "Running desktop applications or GUIs"
+      - "Streaming media or WebSocket servers (not supported)"
+      - "Malware, exploits, or penetration testing tools"
+      - "DDoS participation or botnet controllers"
+      - "Reselling compute without upgrading"
+    allowed_uses:
+      - "Python web applications (Django, Flask, FastAPI)"
+      - "Scheduled cron jobs for data maintenance"
+      - "Discord/Telegram bot hosting (lightweight)"
+      - "Data processing scripts and ETL pipelines"
+      - "Webhook processing and API orchestration"
+      - "Learning and prototyping Python projects"
+      - "Small automation bots (e.g. file management, reporting)"
+      - "Background task workers (single-console mode)"
+    notes: >
+      Beginner plan: 512 MB storage, 1 always-on web app.
+      CPU: 12 hours/day wall-clock execution (not actual CPU usage—wall time).
+      No outbound network access beyond HTTP/HTTPS (no raw TCP sockets).
+      Console: 2 concurrent sessions. No background tasks on free tier.
+      Database: MySQL free tier (100 MB). No PostgreSQL on free.
+      Max 3 hosted websites on free (subdomain based).
+
+  - name: "Google Colab"
+    tier: "free"
+    daily_free_quota: 12
+    unit: "hours GPU/CPU runtime"
+    monthly_free_budget_usd: 0
+    prohibited_uses:
+      - "Cryptocurrency mining (hard-blocked by Colab)"
+      - "Running torrents, P2P, or file-sharing clients"
+      - "Automated mass-account creation"
+      - "Web scraping at scale with rotation/proxy bypass"
+      - "SSH reverse tunnels or VPN endpoints"
+      - "Hosting publicly accessible API endpoints"
+      - "Distributed compute clusters (Colab is single-instance only)"
+      - "Spam generation or content farming"
+      - "Running commercial-grade training without subscription"
+      - "Any use that violates Google Colab's Terms of Service"
+    allowed_uses:
+      - "Machine learning model training and fine-tuning"
+      - "Data analysis and visualization (Pandas, Matplotlib, Seaborn)"
+      - "Lightweight NLP/LLM inference (small models)"
+      - "Notebook-based prototyping and research"
+      - "Data preprocessing and feature engineering"
+      - "Educational demonstrations and teaching materials"
+      - "Experimental agent code testing (short-lived)"
+      - "Exporting trained model artifacts for deployment elsewhere"
+    notes: >
+      Free tier: variable GPU (T4, V100, A100 sometimes — not guaranteed).
+      Session timeout: 12 hours idle max; runtime disconnected after 90 min idle.
+      No background execution; session must stay open in browser.
+      Storage: Google Drive mounted (15 GB free). RAM: ~12 GB typical (GPU session).
+      2024-06: Usage limits may throttle heavy users.
+      NOT suitable for production agent hosting — use for dev/test only.
+      Must not serve real agents; Colab is ephemeral and session may terminate at any time.

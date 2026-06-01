@@ -1,0 +1,161 @@
+# Pricing Rules — 自动报价规则
+
+services:
+  - id: github_polish
+    name: "GitHub Project Polish"
+    description: "README 重写、架构图、安全文件、仓库美化"
+    tiers:
+      - name: "Basic"
+        price_usdt: 29
+        deliverables:
+          - "README.md"
+          - "安装说明"
+          - "使用示例"
+        estimated_hours: 1
+      - name: "Pro"
+        price_usdt: 79
+        deliverables:
+          - "README.md"
+          - "SECURITY.md"
+          - "DISCLAIMER.md"
+          - "CONTRIBUTING.md"
+          - "Mermaid 架构图"
+          - "SVG banner"
+        estimated_hours: 3
+      - name: "Premium"
+        price_usdt: 149
+        deliverables:
+          - "全套安全文件"
+          - "架构图"
+          - "社媒卡片"
+          - "Demo 截图"
+          - "QA 报告"
+          - "Landing Page"
+        estimated_hours: 6
+
+  - id: pypi_release
+    name: "PyPI Package Release"
+    description: "Python 包结构、构建、发布配置"
+    tiers:
+      - name: "Basic"
+        price_usdt: 49
+        deliverables:
+          - "pyproject.toml"
+          - "包结构修复"
+          - "构建报告"
+        estimated_hours: 2
+      - name: "Pro"
+        price_usdt: 149
+        deliverables:
+          - "完整包结构"
+          - "setup.py/pyproject.toml"
+          - "GitHub Actions 发布配置"
+          - "pip install 测试"
+        estimated_hours: 5
+      - name: "Premium"
+        price_usdt: 299
+        deliverables:
+          - "完整包工程"
+          - "多 Python 版本测试"
+          - "Twine 检查"
+          - "发布清单"
+          - "文档站"
+        estimated_hours: 10
+
+  - id: cli_tool
+    name: "AI CLI Tool Builder"
+    description: "根据需求生成 Python CLI 工具"
+    tiers:
+      - name: "Basic"
+        price_usdt: 199
+        deliverables:
+          - "CLI 源码"
+          - "pyproject.toml"
+          - "README"
+        estimated_hours: 8
+      - name: "Pro"
+        price_usdt: 499
+        deliverables:
+          - "CLI 源码 + 测试"
+          - "配置系统"
+          - "本地 License"
+          - "使用文档"
+        estimated_hours: 20
+      - name: "Premium"
+        price_usdt: 999
+        deliverables:
+          - "完整产品级 CLI"
+          - "免费版/Pro 版"
+          - "License 激活"
+          - "PyPI 发布准备"
+          - "测试套件"
+          - "部署文档"
+        estimated_hours: 40
+
+  - id: automation_script
+    name: "Automation Script Service"
+    description: "文件处理、GitHub 自动化、定时任务"
+    tiers:
+      - name: "Basic"
+        price_usdt: 99
+        deliverables:
+          - "Python 脚本"
+          - "配置文件"
+          - "README"
+        estimated_hours: 4
+      - name: "Pro"
+        price_usdt: 299
+        deliverables:
+          - "脚本 + 测试"
+          - "错误处理"
+          - "日志系统"
+          - "使用文档"
+        estimated_hours: 12
+      - name: "Premium"
+        price_usdt: 799
+        deliverables:
+          - "完整自动化方案"
+          - "监控"
+          - "告警"
+          - "恢复机制"
+          - "部署指南"
+        estimated_hours: 30
+
+  - id: product_launch
+    name: "AI Product Launch System"
+    description: "产品选题、仓库包装、PyPI 发布、推广"
+    tiers:
+      - name: "Starter"
+        price_usdt: 499
+        deliverables:
+          - "产品方案"
+          - "仓库结构"
+          - "README"
+          - "Launch Checklist"
+        estimated_hours: 16
+      - name: "Pro"
+        price_usdt: 1499
+        deliverables:
+          - "完整产品包装"
+          - "Landing Page"
+          - "定价页"
+          - "支付流程"
+          - "示意图"
+          - "推广草稿包"
+        estimated_hours: 48
+      - name: "Business"
+        price_usdt: 2999
+        deliverables:
+          - "完整产品上线"
+          - "自动维护系统"
+          - "自动接单系统"
+          - "多语言支持"
+          - "收入报告"
+        estimated_hours: 96
+
+# 尾数生成规则
+unique_amount:
+  enabled: true
+  min_decimals: 2
+  max_decimals: 4
+  seed_based: true  # 基于订单号和时间戳生成确定性尾数

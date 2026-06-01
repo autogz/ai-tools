@@ -1,0 +1,25 @@
+{
+  "order_id": "ORD-20260601-A10E7B",
+  "status": "awaiting_payment",
+  "created_at": "2026-06-01T11:47:25.631891",
+  "updated_at": "2026-06-01T11:47:25.636678",
+  "request": "请帮我美化我的 GitHub 仓库，需要 README 重写和架构图。项目地址: https://github.com/autogz/ai-tools",
+  "contact": "",
+  "service": null,
+  "tier": null,
+  "risk_level": "unknown",
+  "clarity_score": 0.0,
+  "deliverability_score": 0.0,
+  "invoice": null,
+  "payment": null,
+  "delivery": null,
+  "messages": [],
+  "fix_attempts": 0,
+  "status_history": [
+    {
+      "from": "draft",
+      "to": "awaiting_payment",
+      "at": "2026-06-01T11:47:25.636682"
+    }
+  ]
+}

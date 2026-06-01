@@ -1,0 +1,201 @@
+# Rejection Rules — 自动拒绝条件
+# 命中任何一条即自动拒绝
+
+auto_reject:
+  enabled: true
+
+  # 安全底线 — 永远不可触碰
+  hard_blocks:
+    - id: RB001
+      category: illegal
+      description: "破解、盗版、绕过授权"
+      patterns:
+        - "crack"
+        - "keygen"
+        - "pirate"
+        - "warez"
+        - "bypass license"
+        - "remove activation"
+        - "破解"
+        - "盗版"
+        - "去授权"
+      action: reject_permanently
+      message: "我们不接受涉及破解、盗版或绕过软件授权的请求。"
+
+    - id: RB002
+      category: illegal
+      description: "钓鱼、诈骗、社工"
+      patterns:
+        - "phish"
+        - "scam"
+        - "social engineering"
+        - "fake login"
+        - "steal credentials"
+        - "钓鱼"
+        - "诈骗"
+      action: reject_permanently
+      message: "我们不接受涉及钓鱼、诈骗或社会工程的请求。"
+
+    - id: RB003
+      category: illegal
+      description: "黑客攻击、漏洞利用、恶意代码"
+      patterns:
+        - "exploit"
+        - "zero day"
+        - "malware"
+        - "ransomware"
+        - "trojan"
+        - "backdoor"
+        - "CVE-"
+        - "hack"
+        - "黑客"
+        - "漏洞利用"
+      action: reject_permanently
+      message: "我们不接受涉及黑客攻击或恶意代码的请求。"
+
+    - id: RB004
+      category: abuse
+      description: "批量注册、刷量、垃圾营销"
+      patterns:
+        - "mass register"
+        - "account farm"
+        - "star farm"
+        - "fake traffic"
+        - "boost follower"
+        - "涨粉"
+        - "刷量"
+        - "刷单"
+      action: reject_permanently
+      message: "我们不接受涉及批量注册、刷量或垃圾营销的请求。"
+
+    - id: RB005
+      category: abuse
+      description: "抓取隐私数据"
+      patterns:
+        - "scrape personal data"
+        - "collect email"
+        - "data mine"
+        - "crawl profile"
+        - "抓取数据"
+        - "爬个人信息"
+      action: reject_permanently
+      message: "我们不接受涉及抓取个人隐私数据的请求。"
+
+    - id: RB006
+      category: illegal
+      description: "绕过验证码或平台封禁"
+      patterns:
+        - "bypass captcha"
+        - "solve captcha"
+        - "绕过验证码"
+        - "anti-captcha"
+        - "ban bypass"
+        - "绕过封禁"
+      action: reject_permanently
+      message: "我们不接受涉及绕过验证码或平台封禁的请求。"
+
+    - id: RB007
+      category: illegal
+      description: "代理池或开放代理"
+      patterns:
+        - "proxy pool"
+        - "proxy scraper"
+        - "open proxy"
+        - "residential proxy"
+        - "代理池"
+      action: reject_permanently
+      message: "我们不接受涉及代理池或开放代理的请求。"
+
+    - id: RB008
+      category: illegal
+      description: "侵犯版权"
+      patterns:
+        - "copyright"
+        - "dmca"
+        - "plagiarize"
+        - "盗用"
+        - "抄袭"
+        - "侵权"
+      action: reject_manually
+      message: "请确认您拥有相关内容的版权或已获得授权。"
+
+    - id: RB009
+      category: financial
+      description: "金融收益承诺"
+      patterns:
+        - "guaranteed return"
+        - "investment"
+        - "trading bot profit"
+        - "make money guaranteed"
+        - "收益保证"
+        - "稳赚"
+        - "理财"
+      action: reject_permanently
+      message: "我们不接受涉及金融收益承诺或投资理财的请求。"
+
+    - id: RB010
+      category: illegal
+      description: "医疗、法律、税务结论自动化"
+      patterns:
+        - "medical diagnosis"
+        - "legal advice"
+        - "tax evasion"
+        - "自动诊断"
+        - "法律建议"
+        - "避税"
+      action: reject_permanently
+      message: "我们不接受涉及医疗诊断、法律建议或税务规避的自动化请求。"
+
+    - id: RB011
+      category: compliance
+      description: "需要保存客户敏感密钥但无安全方案"
+      patterns:
+        - "store my key"
+        - "keep my password"
+        - "save my secret"
+        - "保存密钥"
+        - "保存密码"
+      action: reject_clarify
+      message: "我们不会保存您的敏感密钥。请提供不需要我们保存密钥的实施方案。"
+
+    - id: RB012
+      category: financial
+      description: "客户要求保证收益、排名、涨粉"
+      patterns:
+        - "guarantee ranking"
+        - "guarantee sales"
+        - "保证排名"
+        - "保证收入"
+        - "保证粉丝"
+      action: reject_permanently
+      message: "我们无法保证任何商业收益、排名或粉丝增长。所有交付物仅限代码和文档。"
+
+  # 软拒绝 — 需要澄清
+  soft_rejects:
+    - id: RS001
+      description: "需求描述太短 (< 50 字符)"
+      min_length: 50
+      action: clarify
+      message: "请提供更详细的需求描述，包括项目背景和期望交付物。"
+
+    - id: RS002
+      description: "没有提供项目链接"
+      patterns:
+        - "github"
+        - "gitlab"
+        - "bitbucket"
+        - "项目"
+        - "仓库"
+      require_one: true
+      action: clarify
+      message: "请提供项目仓库链接（GitHub/GitLab/Bitbucket）。"
+
+    - id: RS003
+      description: "没有选择服务类型"
+      action: clarify
+      message: "请从标准服务菜单中选择您需要的服务类型。"
+
+    - id: RS004
+      description: "预算和需求不匹配"
+      action: clarify
+      message: "您的需求复杂度可能超出所选套餐范围。请确认套餐或联系升级。"

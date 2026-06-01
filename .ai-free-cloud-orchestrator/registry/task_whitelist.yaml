@@ -1,0 +1,512 @@
+# AI Free Cloud Agent Network — Task Whitelist Registry
+# Every task an agent is allowed to perform must appear in this registry.
+# Tasks not listed here are forbidden. All actions are audited, rate-limited,
+# and subject to human-approval gates where indicated.
+# Organization: categories reflect the primary domain of the task.
+
+categories:
+  documentation:
+    description: >
+      Tasks related to generating, updating, and maintaining project
+      documentation including README files, changelogs, API references,
+      and license headers. These tasks typically require repo_write or
+      broader secrets scope.
+    tasks:
+      - task_id: "readme_sync"
+        category: "documentation"
+        description: >
+          Synchronize the repository README with content from approved
+          external sources (e.g., latest build status, contributor stats,
+          feature matrix). Must not overwrite human-authored sections.
+        required_secrets_scope: "repo_write"
+        max_runtime_minutes: 10
+        requires_human_approval: false
+
+      - task_id: "changelog_generate"
+        category: "documentation"
+        description: >
+          Auto-generate a CHANGELOG entry from commit messages between
+          two git tags or from pull request merge titles. Entries are
+          appended to the existing CHANGELOG file after deduplication.
+        required_secrets_scope: "repo_write"
+        max_runtime_minutes: 10
+        requires_human_approval: false
+
+      - task_id: "contributing_update"
+        category: "documentation"
+        description: >
+          Update CONTRIBUTING.md with current coding standards, PR
+          workflow, and testing requirements. Pulls approved templates
+          from the knowledge base.
+        required_secrets_scope: "repo_write"
+        max_runtime_minutes: 5
+        requires_human_approval: true
+
+      - task_id: "license_header_update"
+        category: "documentation"
+        description: >
+          Scan all source files for missing or outdated license headers
+          and update them to the current year and project license.
+          Operates on defined file extensions only.
+        required_secrets_scope: "repo_write"
+        max_runtime_minutes: 15
+        requires_human_approval: false
+
+      - task_id: "badge_refresh"
+        category: "documentation"
+        description: >
+          Update Shields.io or similar badges in README based on current
+          CI status, test coverage, code quality scores, and version.
+        required_secrets_scope: "repo_write"
+        max_runtime_minutes: 5
+        requires_human_approval: false
+
+      - task_id: "api_docs_rebuild"
+        category: "documentation"
+        description: >
+          Rebuild API documentation from source code annotations
+          (e.g., JSDoc, pydoc, godoc) and deploy to the docs site.
+          Only runs if documentation sources have changed.
+        required_secrets_scope: "pages_deploy"
+        max_runtime_minutes: 20
+        requires_human_approval: true
+
+      - task_id: "spellcheck_run"
+        category: "documentation"
+        description: >
+          Run a spelling and grammar checker across all markdown and
+          documentation files. Report errors as PR comments or inline
+          annotations. Does not auto-fix.
+        required_secrets_scope: "repo_read"
+        max_runtime_minutes: 5
+        requires_human_approval: false
+
+  visual:
+    description: >
+      Tasks that produce or update visual artifacts: dashboards,
+      preview deployments, screenshots, diagrams, and data
+      visualizations. Often involves rendering and static hosting.
+    tasks:
+      - task_id: "dashboard_data_refresh"
+        category: "visual"
+        description: >
+          Fetch the latest metrics from usage/quotas endpoints and
+          update a status dashboard (JSON or static HTML). Dashboard
+          is hosted on Cloudflare Pages or Netlify.
+        required_secrets_scope: "read_only_billing"
+        max_runtime_minutes: 5
+        requires_human_approval: false
+
+      - task_id: "preview_deploy"
+        category: "visual"
+        description: >
+          Deploy a preview instance of the site from a feature branch
+          to a subdomain or preview URL. Typically triggered after a
+          successful build from qa_worker checks.
+        required_secrets_scope: "pages_deploy"
+        max_runtime_minutes: 15
+        requires_human_approval: false
+
+      - task_id: "screenshot_generate"
+        category: "visual"
+        description: >
+          Take headless screenshots of deployed pages for visual
+          regression testing. Compare against baselines and flag
+          differences. Output is stored in a diff report.
+        required_secrets_scope: "repo_write"
+        max_runtime_minutes: 10
+        requires_human_approval: false
+
+      - task_id: "diagram_update"
+        category: "visual"
+        description: >
+          Regenerate architecture diagrams from source definitions
+          (Mermaid, PlantUML, Graphviz). Updates diagram files in
+          the docs/ directory and re-deploys if hosted.
+        required_secrets_scope: "repo_write"
+        max_runtime_minutes: 10
+        requires_human_approval: false
+
+      - task_id: "chart_render"
+        category: "visual"
+        description: >
+          Render usage or performance charts from aggregated data
+          using a charting library (e.g., Chart.js, Plotly). Output
+          is saved as SVG/PNG and linked from the status dashboard.
+        required_secrets_scope: "orchestrator_internal"
+        max_runtime_minutes: 5
+        requires_human_approval: false
+
+  monitoring:
+    description: >
+      Tasks that observe system health, quotas, usage trends, and
+      external dependencies. Monitoring agents operate with read-only
+      access where possible and produce structured alerts.
+    tasks:
+      - task_id: "quota_poll_all_platforms"
+        category: "monitoring"
+        description: >
+          Poll usage and quota endpoints for every registered platform.
+          Compare current consumption against configured limits and
+          thresholds. Store results in shared KV for dashboard display.
+        required_secrets_scope: "read_only_billing"
+        max_runtime_minutes: 5
+        requires_human_approval: false
+
+      - task_id: "usage_trend_analyze"
+        category: "monitoring"
+        description: >
+          Analyze recent usage history (last 7 days or 30 days) to
+          detect growth trends, anomalies, or approaching limit
+          exhaustion. Produce a trend report.
+        required_secrets_scope: "read_only_billing"
+        max_runtime_minutes: 10
+        requires_human_approval: false
+
+      - task_id: "alert_dispatch"
+        category: "monitoring"
+        description: >
+          Send an alert to the configured notification channel
+          (e.g., Discord webhook, email, Telegram) when a threshold
+          is crossed or an anomaly is detected. Includes context
+          data and suggested actions.
+        required_secrets_scope: "orchestrator_internal"
+        max_runtime_minutes: 2
+        requires_human_approval: false
+
+      - task_id: "heartbeat_aggregate"
+        category: "monitoring"
+        description: >
+          Collect heartbeats from all active agents, verify liveness,
+          and update the agent registry statuses. Flag agents that
+          have not reported within their expected interval.
+        required_secrets_scope: "orchestrator_internal"
+        max_runtime_minutes: 5
+        requires_human_approval: false
+
+      - task_id: "uptime_check"
+        category: "monitoring"
+        description: >
+          Perform HTTP health checks against deployed services and
+          endpoints. Record response times, status codes, and cert
+          expiry dates. Publish results to the monitoring dashboard.
+        required_secrets_scope: "read_only_billing"
+        max_runtime_minutes: 5
+        requires_human_approval: false
+
+      - task_id: "link_check"
+        category: "monitoring"
+        description: >
+          Scan all documentation and site pages for broken external
+          and internal links. Report results as a structured list
+          grouped by severity (broken, redirect, slow).
+        required_secrets_scope: "repo_read"
+        max_runtime_minutes: 15
+        requires_human_approval: false
+
+      - task_id: "budget_report_generate"
+        category: "monitoring"
+        description: >
+          Compile a comprehensive budget report showing month-to-date
+          consumption, projected end-of-month usage, and recommendations
+          for staying within free-tier limits.
+        required_secrets_scope: "read_only_billing"
+        max_runtime_minutes: 10
+        requires_human_approval: false
+
+  order_intake:
+    description: >
+      Tasks that receive, validate, and route incoming external
+      signals: webhooks, form submissions, issue reports, pull
+      requests, and API calls. These are the system's front doors.
+    tasks:
+      - task_id: "webhook_receive"
+        category: "order_intake"
+        description: >
+          Receive an incoming webhook payload, validate its signature
+          against a known secret, parse the event type, and route it
+          to the appropriate handler or queue.
+        required_secrets_scope: "cloudflare_worker"
+        max_runtime_minutes: 0.5
+        requires_human_approval: false
+
+      - task_id: "payload_validate"
+        category: "order_intake"
+        description: >
+          Validate a received payload against a JSON schema or other
+          structural rules. Reject malformed or unexpected payloads
+          with a clear error response. Log validation outcomes.
+        required_secrets_scope: "cloudflare_worker"
+        max_runtime_minutes: 0.5
+        requires_human_approval: false
+
+      - task_id: "form_submission_process"
+        category: "order_intake"
+        description: >
+          Process a web form submission (e.g., contact form, feedback,
+          sign-up). Validate inputs, store in KV or DB, and trigger a
+          notification if human follow-up is needed.
+        required_secrets_scope: "cloudflare_worker"
+        max_runtime_minutes: 1
+        requires_human_approval: false
+
+      - task_id: "issue_parse"
+        category: "order_intake"
+        description: >
+          Parse a new GitHub issue for structured data (bug reports,
+          feature requests). Classify by type, assign labels, and
+          route to the appropriate project board.
+        required_secrets_scope: "repo_read"
+        max_runtime_minutes: 3
+        requires_human_approval: false
+
+      - task_id: "pr_comment_results"
+        category: "order_intake"
+        description: >
+          Post check-run results, lint output, or QA feedback as a
+          comment on a pull request. Must not overpost; deduplicates
+          by replacing previous result comments.
+        required_secrets_scope: "repo_write"
+        max_runtime_minutes: 2
+        requires_human_approval: false
+
+      - task_id: "notification_dispatch"
+        category: "order_intake"
+        description: >
+          Dispatch a structured notification to a configured channel
+          (Discord, Slack, Telegram, email) with event details,
+          severity, and any action buttons or links.
+        required_secrets_scope: "orchestrator_internal"
+        max_runtime_minutes: 1
+        requires_human_approval: false
+
+      - task_id: "kv_store_write"
+        category: "order_intake"
+        description: >
+          Write a validated key-value pair to the Cloudflare KV or
+          equivalent key-value store. Used for persisting state,
+          configuration, or processed webhook data.
+        required_secrets_scope: "cloudflare_worker"
+        max_runtime_minutes: 0.5
+        requires_human_approval: false
+
+  maintenance:
+    description: >
+      Housekeeping and infrastructure tasks: log rotation, cleanup,
+      build/deploy orchestration, validation, and config
+      synchronization. These keep the system running smoothly.
+    tasks:
+      - task_id: "log_rotate"
+        category: "maintenance"
+        description: >
+          Compress, archive, and prune old log files from the
+          orchestrator workspace. Keep logs for the configured
+          retention period (default: 7 days compressed, 30 days
+          archived). Purge expired archives.
+        required_secrets_scope: "orchestrator_internal"
+        max_runtime_minutes: 10
+        requires_human_approval: false
+
+      - task_id: "temp_file_cleanup"
+        category: "maintenance"
+        description: >
+          Remove temporary files, build artifacts, and cached data
+          older than 24 hours from the workspace. Frees disk space
+          and prevents stale state accumulation.
+        required_secrets_scope: "orchestrator_internal"
+        max_runtime_minutes: 5
+        requires_human_approval: false
+
+      - task_id: "registry_sync_check"
+        category: "maintenance"
+        description: >
+          Verify that all registry files (platforms.yaml, agents.yaml,
+          quotas.yaml, task_whitelist.yaml) are internally consistent
+          and that no agent references a platform or task not defined
+          in the registries.
+        required_secrets_scope: "orchestrator_internal"
+        max_runtime_minutes: 5
+        requires_human_approval: false
+
+      - task_id: "site_build"
+        category: "maintenance"
+        description: >
+          Run the site build command (e.g., hugo, next build, eleventy)
+          on the latest sources. Does not deploy — only validates that
+          the build succeeds and produces expected output.
+        required_secrets_scope: "pages_deploy"
+        max_runtime_minutes: 25
+        requires_human_approval: false
+
+      - task_id: "production_deploy"
+        category: "maintenance"
+        description: >
+          Deploy the current build to the production environment.
+          Requires explicit human approval. A rollback snapshot is
+          taken before deployment.
+        required_secrets_scope: "pages_deploy"
+        max_runtime_minutes: 15
+        requires_human_approval: true
+
+      - task_id: "yaml_validate"
+        category: "maintenance"
+        description: >
+          Validate all YAML files in the repository against their
+          expected schemas. Report structural errors, missing fields,
+          or type mismatches.
+        required_secrets_scope: "repo_read"
+        max_runtime_minutes: 5
+        requires_human_approval: false
+
+      - task_id: "check_run_create"
+        category: "maintenance"
+        description: >
+          Create or update a GitHub Check Run on a commit or PR with
+          QA results (pass/fail, annotations, summary). Used by the
+          QA worker to report lint, spell, and link check results.
+        required_secrets_scope: "repo_write"
+        max_runtime_minutes: 2
+        requires_human_approval: false
+
+      - task_id: "lint_run"
+        category: "maintenance"
+        description: >
+          Run configured linters (ESLint, ruff, golangci-lint, etc.)
+          across the codebase. Fail on errors. Results are posted as
+          check runs or PR annotations.
+        required_secrets_scope: "repo_read"
+        max_runtime_minutes: 10
+        requires_human_approval: false
+
+      - task_id: "rate_limit_enforcement"
+        category: "maintenance"
+        description: >
+          Apply rate-limiting logic to incoming requests. Check counters,
+          enforce per-IP or per-key limits, and return 429 when exceeded.
+          Clears stale rate-limit entries from KV.
+        required_secrets_scope: "cloudflare_worker"
+        max_runtime_minutes: 0.5
+        requires_human_approval: false
+
+      - task_id: "status_report_generate"
+        category: "maintenance"
+        description: >
+          Compile a system status report showing all agent statuses,
+          last heartbeat times, any errors, and recent run history.
+          Store as a structured JSON file for the admin dashboard.
+        required_secrets_scope: "orchestrator_internal"
+        max_runtime_minutes: 5
+        requires_human_approval: false
+
+  growth:
+    description: >
+      Research, content creation, and outreach tasks that help the
+      project grow. These are generally non-critical, run less
+      frequently, and their outputs require human review before
+      publication.
+    tasks:
+      - task_id: "trend_sources_scan"
+        category: "growth"
+        description: >
+          Scan trending repositories on GitHub, trending articles on
+          dev.to/Hacker News, and popular datasets on Hugging Face.
+          Produce a ranked summary of what's currently relevant.
+        required_secrets_scope: "read_only_github"
+        max_runtime_minutes: 30
+        requires_human_approval: true
+
+      - task_id: "content_gap_analysis"
+        category: "growth"
+        description: >
+          Analyze existing documentation and compare against common
+          user questions, competitor docs, or search queries. Identify
+          missing topics or sections that should be created.
+        required_secrets_scope: "read_only_github"
+        max_runtime_minutes: 20
+        requires_human_approval: true
+
+      - task_id: "draft_blog_post"
+        category: "growth"
+        description: >
+          Generate a draft blog post on a specified topic using an
+          approved LLM. Output is markdown with front-matter. Posts
+          are stored for human review; never published automatically.
+        required_secrets_scope: "llm_api_key"
+        max_runtime_minutes: 10
+        requires_human_approval: false
+
+      - task_id: "draft_release_notes"
+        category: "growth"
+        description: >
+          Generate draft release notes from git log and PR history
+          since the last release. Structure by type (feature, fix,
+          breaking change). Output requires human editing before
+          publishing.
+        required_secrets_scope: "repo_read"
+        max_runtime_minutes: 8
+        requires_human_approval: false
+
+      - task_id: "draft_documentation_update"
+        category: "growth"
+        description: >
+          Generate a draft update for a documentation page based on
+          code changes or new features. Uses an approved LLM to
+          summarize diffs and produce clear prose. Human review required.
+        required_secrets_scope: "llm_api_key"
+        max_runtime_minutes: 10
+        requires_human_approval: false
+
+      - task_id: "repo_metadata_collect"
+        category: "growth"
+        description: >
+          Collect metadata (stars, forks, open issues, contributors,
+          activity level) from target repositories for competitive
+          or community benchmarking. Stores in KV for trend tracking.
+        required_secrets_scope: "read_only_github"
+        max_runtime_minutes: 10
+        requires_human_approval: false
+
+      - task_id: "dataset_discovery"
+        category: "growth"
+        description: >
+          Search for new datasets on Hugging Face, Kaggle, and other
+          open data platforms relevant to the project domain. Return
+          a curated list with descriptions and license info.
+        required_secrets_scope: "read_only_github"
+        max_runtime_minutes: 15
+        requires_human_approval: true
+
+      - task_id: "report_generate_markdown"
+        category: "growth"
+        description: >
+          Produce a structured markdown report from collected data
+          (trends, metadata, analysis). Suitable for sharing with
+          the team or publishing as a community update.
+        required_secrets_scope: "repo_write"
+        max_runtime_minutes: 10
+        requires_human_approval: false
+
+      - task_id: "llm_inference_approved"
+        category: "growth"
+        description: >
+          Run an inference request against an approved LLM API with
+          a vetted prompt template. Used for content drafting,
+          summarization, and classification. Strict prompt sanitization
+          enforced.
+        required_secrets_scope: "llm_api_key"
+        max_runtime_minutes: 5
+        requires_human_approval: false
+
+      - task_id: "kv_write_draft"
+        category: "growth"
+        description: >
+          Store a content draft (blog post, release notes, doc update)
+          in a key-value store for later retrieval by a human reviewer.
+          Includes metadata: author agent, timestamp, draft status.
+        required_secrets_scope: "cloudflare_worker"
+        max_runtime_minutes: 0.5
+        requires_human_approval: false
+
+# Total: 7 (documentation) + 5 (visual) + 7 (monitoring) + 7 (order_intake)
+#         + 10 (maintenance) + 10 (growth) = 46 tasks
+# All 46 tasks reference only task_ids that exist in the agents' allowed_tasks lists.
